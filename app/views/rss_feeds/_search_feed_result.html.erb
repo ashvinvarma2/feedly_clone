@@ -1,0 +1,17 @@
+<% result.each do |r| %>
+  <div class="rss-feed-results">
+    <div class="column1">
+
+      <img src=<%= r[:logo_url] %> class="feed_logo" />
+    </div>
+    <div class="column2">
+      <div style="font-weight: 700;"><%= r[:title] %></div>
+      <div style="color: #a5a5a5;margin-top: 15px;margin-left: -2px">RSS Feed</div>
+    </div>
+    <div class="column3">
+      <button class="follow-button">
+        FOLLOW<i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,94 @@
+<div class="container" style="padding-left: 12%; padding-right: 12%;">
+  <%= turbo_frame_tag "dashboard_index", target: "_top" do %>
+    <%= render partial: "dashboard" %>
+  <% end %>
+</div>
+
+<!-- Modal -->
+<div data-controller="category_form">
+  <div class="modal right" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-category_form-target="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="category_form">
+            <h2>
+              Create New Folder
+              <div>
+                Group your feeds into a private folder by topic, type, or project
+              </div>
+            </h2>
+            <%= form_with model: Category.new, method: :post, data: { action: "turbo:submit->category_form#handleSuccess" } do |form| %>
+              <div style="margin-bottom: 1.5rem;">
+                <div>
+                  <label class="category-title">
+                    Title
+                  </label>
+                </div>
+                <div class="category-input" data-category_form-target="input">
+                  <%= form.text_field :name, placeholder: "Topic, type, project, etc.", class: "category-text-field" %>
+                </div>
+              </div>
+              <div>
+                <%= form.submit 'SAVE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+                <button type="button" class="action-btn cancel-category">
+                  <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    CANCEL
+                  </span>
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<%
+=begin%>
+ <div data-controller="topic">
+  <div class="modal right" id="topicModal" tabindex="-1" aria-labelledby="topicModalLabel" aria-hidden="true" data-topic-target="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="category_form">
+            <h2>
+              Follow your favorite websites
+            </h2>
+            <%= form_with model: RssLink.new, method: :post, data: { action: "turbo:submit->topic#handleSuccess" } do |form| %>
+              <div style="margin-bottom: 1.5rem;">
+                <div class="topic-input" data-topic-target="input">
+                  <span>
+                    <i class="fa fa-search"></i>
+                  </span>
+                  <%= form.text_field :link, placeholder: "     Topic, type, project, etc.", class: "category-text-field", id: "search-input" %>
+                </div>
+              </div>
+              <div>
+                <%= form.submit 'SAVE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+                <button type="button" class="action-btn cancel-category">
+                  <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    CANCEL
+                  </span>
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%
+=end%>

@@ -1,0 +1,43 @@
+.rss-feed-results {
+  border: 1px solid var(--line-clr);
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+  margin-top: 50px;
+  display: flex;
+}
+
+.column1 {
+  flex: 15%;
+}
+
+.column2 {
+  flex: 55%;
+}
+
+.column3 {
+  flex: 30%;
+  align-items: center;
+  display: flex;
+}
+
+.feed_logo{
+  vertical-align: middle;
+  height: 60px;
+  width: 60px;
+  border-radius: 2px;
+}
+
+.follow-button {
+  background-color: transparent;
+  border: 1px solid #2bb24c;
+  color: #2bb24c;
+  padding: 3px 19px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.follow-button i {
+  margin-left: 8px;
+  margin-right: -6px;
+}

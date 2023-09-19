@@ -1,0 +1,27 @@
+<div class="category_form">
+  <h2>
+    Follow your favorite websites
+  </h2>
+  <%= form_with(url: search_rss_feeds_path, method: :get, data: { turbo_stream: "top", action: "turbo:submit->topic#handleSuccess" }) do |form| %>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class="topic-input" data-topic-target="input">
+        <div>
+          <i class="fa fa-search"></i>
+        </div>
+          <%= form.text_field :link, placeholder: "Topic, type, project, etc.", autocomplete: "off", class: "category-text-field", id: "search-input" %>
+      </div>
+    </div>
+    <div>
+      <%= form.submit 'SAVE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+      <button type="button" class="action-btn cancel-category">
+        <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+          CANCEL
+        </span>
+      </button>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "rss_feed_results"%>
+</div>
+

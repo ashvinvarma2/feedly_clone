@@ -1,0 +1,143 @@
+<nav class="navbar-container">
+
+  <!--  *****   Navbar Header Starts   *****  -->
+  <header class="navbar-header">
+
+    <div class="logo">
+      <div class="logoImg">
+        <img src="logo1.png" width="50px" height="45px" id=logo alt="Logo image" />
+      </div>
+    </div>
+
+  </header>
+
+  <!--  *****   Navbar Header Ends   *****  -->
+
+  <!--  *****   Navbar Links Starts   *****  -->
+
+    <ul class="navbar-links">
+
+      <li>
+        <%= link_to dashboard_index_path, data: { turbo_stream: 'top' } do %>
+          <span class="nav-icon" data-label="Dashboard">
+            <%= content_tag(:i, nil, class: "fa-solid fa-house", "aria-hidden" => "true") %>
+          </span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to new_rss_feed_path, data: { turbo_stream: 'true' } do %>
+          <span class="nav-icon" data-label="Topic">
+            <%= content_tag(:i, nil, class: "fa fa-wifi", style: "transform: rotate(45deg);", "aria-hidden" => "true") %>
+          </span>
+        <% end %>
+      </li>
+    </div>
+
+      <li>
+        <a href="#">
+          <span class="nav-icon" data-label="Notifications">
+            <i class="fa-regular fa-bell"></i>
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="nav-icon" data-label="Components">
+            <i class="fa-solid fa-laptop"></i>
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="nav-icon" data-label="Analytics">
+            <i class="fa-solid fa-chart-line"></i>
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="nav-icon" data-label="Favorites">
+            <i class="fa-regular fa-heart"></i>
+          </span>
+        </a>
+      </li>
+
+        <li>
+        <a href="#">
+          <span class="nav-icon" data-label="Saved">
+            <i class="fa-regular fa-bookmark"></i>
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="nav-icon" data-label="Settings">
+            <i class="fa-solid fa-gear"></i>
+          </span>
+        </a>
+      </li>
+    </ul>
+
+  <!--  *****   Navbar Links Ends   *****  -->
+
+  <!--  *****   Navbar Footer Starts   *****  -->
+  <div class="navbar-footer">
+
+    <div class="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <p>Logout</p>
+    </div>
+
+      <div class="dark-light-mode">
+        <div class="btn-container">
+          <div class="button"></div>
+        </div>
+        <div class="text">Light Mode</div>
+      </div>
+
+  </div>
+  <!--  *****   Navbar Footer Ends   *****  -->
+
+</nav>
+<div class="navbar-container2">
+  <div class="m-t-2">
+    <div class="nav-list-item">
+      <span class="nav-icon"><img src="logo4.png" width="20px" height="20px" id=logo alt="Logo image" /></span>
+      <span class="nav-list-item-text nav-list-item-text-bold">
+        Today
+      </span>
+    </div>
+    <div class="nav-list-item">
+      <span class="nav-icon"><i class="fa-regular fa-bookmark"></i></span>
+      <span class="nav-list-item-text nav-list-item-text-bold">
+        Save Items
+      </span>
+    </div>
+  </div>
+  <div class="nav-heading">
+    <span>FEEDS</span>
+  </div>
+
+  <div class="nav-list-item">
+    <span class="nav-icon"><i class="fa-solid fa-list"></i></span>
+    <span class="nav-list-item-text nav-list-item-text-bold">
+      All
+    </span>
+  </div>
+
+  <%= turbo_frame_tag "categories" do %>
+    <%= render partial: "categories/category", collection: @categories, as: :category %>
+  <% end %>
+
+  <div class="nav-list-item">
+    <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Create new folder
+    </span>
+  </div>
+</div>
+
