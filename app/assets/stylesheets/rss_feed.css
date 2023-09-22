@@ -27,6 +27,13 @@
   border-radius: 2px;
 }
 
+.feed-list-logo{
+  vertical-align: middle;
+  height: 25px;
+  width: 25px;
+  border-radius: 2px;
+}
+
 .follow-button {
   background-color: transparent;
   border: 1px solid #2bb24c;
@@ -40,4 +47,81 @@
 .follow-button i {
   margin-left: 8px;
   margin-right: -6px;
+}
+
+.add-button {
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid #2bb24c;
+  color: #2bb24c;
+  padding: 3px 19px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.add-button i {
+  margin-left: 8px;
+  margin-right: -6px;
+}
+
+
+.custom-popover {
+  background-color: var(--body-clr);;
+  box-shadow: 0 2px 8px rgba(255,255,255,.2);
+  border-radius: 1px solid var(--line-clr)!important;
+  border-radius: 0px !important;
+  max-width: 500px !important;
+  padding: 0 !important;
+  width: 250px;
+  --bs-popover-max-width: 200px;
+  --bs-popover-header-bg: var(--bd-violet-bg);
+  --bs-popover-header-color: var(--bs-white);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+  --bs-popover-bg: var(--body-clr);
+}
+
+.custom-popover .popover-body {
+  padding: 0 !important;
+}
+
+.custom-popover ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0rem !important;
+}
+
+.custom-popover ul li {
+  margin-left: 0;
+  padding-left: 0;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  align-items: center;
+  color: var(--text-clr);
+  padding: 3px;
+  align-items: center;
+  display: flex;
+  border-bottom: 1px solid var(--line-clr);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.custom-popover ul li .category-name{
+  flex: 60%;
+}
+
+.custom-popover ul li .add-category{
+  flex: 40%;
+}
+
+.custom-popover ul li:hover{
+  background-color: var(--navbar-hover-clr);
+}
+
+.folder-icon {
+  color: var(--line-clr);
+  margin-right: 15px;
+  margin-left: 4px;
+  font-size: 15px;
 }

@@ -41,20 +41,31 @@
  }
 
  .navbar-container {
-   width: 82px;
-   background-color: var(--body-clr);
-   border-right: 0px solid var(--line-clr);
- }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 82px;
+  height: 100vh; /* Set height to cover entire viewport */
+  background-color: var(--body-clr);
+  border-right: 0px solid var(--line-clr);
+}
 
- .navbar-container2 {
-   flex: 0 0 15%; /* 15% width */
-   background-color: var(--menu-clr);
-   border-right: 0px solid var(--line-clr);
- }
- .main-content {
-   flex: 1;
-   padding: 20px;
- }
+.navbar-container2 {
+  position: fixed;
+  top: 0;
+  left: 82px; /* Adjust this value based on the width of navbar-container */
+  width: 15%; /* 15% width */
+  height: 100vh; /* Set height to cover entire viewport */
+  background-color: var(--menu-clr);
+  border-right: 0px solid var(--line-clr);
+}
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 20%;
+  height: 100vh; /* Set height to cover entire viewport */
+}
+
 
 #loader {
   position: absolute;

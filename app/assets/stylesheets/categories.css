@@ -22,8 +22,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
-  display: block;
   font-weight: 700;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: pre-wrap;
 }
 
 .card-layout-content .description {
@@ -35,4 +39,7 @@
   margin-top: 0.25rem;
   word-break: break-word;
   color: #a5a5a5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  white-space: pre-wrap;
 }

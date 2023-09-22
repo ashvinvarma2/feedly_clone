@@ -1,5 +1,5 @@
 class RssFeedsController < ApplicationController
-  before_action :fetch_rss_feed, only: %i[create show]
+  before_action :fetch_rss_feed, only: %i[show]
 
   def index; end
 
@@ -10,15 +10,16 @@ class RssFeedsController < ApplicationController
     )
   end
 
-  def create
-    @rss_feed = RssFeed.new(rss_feed_params)
-
+  def add_to_category
+    @category = Category.find(params[:category_id])
+    @rss_feed = @category.rss_feeds.new(link: params[:rss_link])
+    rss_fetcher = RssFetcherService.new(@rss_feed.link)
+    @result = rss_fetcher.fetch_rss_feeds
+    @rss_feed.title = @result.first[:title]
     if @rss_feed.save
       respond_to do |format|
         format.turbo_stream
-        format.html { render json: { rss_feed: @rss_feed }, status: :created }
       end
-
     else
       render json: { errors: @rss_feed.errors.full_messages }, status: :unprocessable_entity
     end
@@ -37,7 +38,11 @@ class RssFeedsController < ApplicationController
   def show
     rss_fetcher = RssFetcherService.new(@rss_feed.link)
     result = rss_fetcher.fetch_rss_feeds
-    debugger
+    render turbo_stream: turbo_stream.update(
+      "dashboard_index",
+      partial: "rss_feeds/feeds",
+      locals: { category: @rss_feed.category, result: result }
+    )
   end
 
   private

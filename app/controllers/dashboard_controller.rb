@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+
   def index
     @category = Category.new
     @categories = Category.all

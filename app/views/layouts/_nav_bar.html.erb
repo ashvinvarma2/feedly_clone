@@ -89,8 +89,11 @@
   <div class="navbar-footer">
 
     <div class="logoutBtn">
-      <i class="fa-solid fa-right-from-bracket"></i>
-      <p>Logout</p>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <span class="nav-icon" data-label="Logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </span>
+      <% end %>
     </div>
 
       <div class="dark-light-mode">
@@ -115,7 +118,7 @@
     <div class="nav-list-item">
       <span class="nav-icon"><i class="fa-regular fa-bookmark"></i></span>
       <span class="nav-list-item-text nav-list-item-text-bold">
-        Save Items
+        Read Later
       </span>
     </div>
   </div>

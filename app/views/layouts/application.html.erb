@@ -7,11 +7,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "navbar", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "form-modal", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "categories", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "rss_feed", "data-turbo-track": "reload" %>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= turbo_include_tags %>
@@ -26,7 +28,9 @@
     <span class="visually-hidden">Loading...</span>
   </div>
   <body>
-    <%= render "layouts/nav_bar" %>
+    <% if user_signed_in? %>
+      <%= render "layouts/nav_bar" %>
+    <% end %>
     <div class="main-content">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>

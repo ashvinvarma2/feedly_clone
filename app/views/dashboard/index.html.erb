@@ -23,6 +23,7 @@
               </div>
             </h2>
             <%= form_with model: Category.new, method: :post, data: { action: "turbo:submit->category_form#handleSuccess" } do |form| %>
+              <%= form.hidden_field :user_id, value: current_user.id %>
               <div style="margin-bottom: 1.5rem;">
                 <div>
                   <label class="category-title">
@@ -30,7 +31,7 @@
                   </label>
                 </div>
                 <div class="category-input" data-category_form-target="input">
-                  <%= form.text_field :name, placeholder: "Topic, type, project, etc.", class: "category-text-field" %>
+                  <%= form.text_field :name, placeholder: "Topic, type, project, etc.", class: "category-text-field", autocomplete: 'off' %>
                 </div>
               </div>
               <div>

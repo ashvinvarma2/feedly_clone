@@ -8,10 +8,10 @@
     </div>
 
     <div class="dropdown-content" data-dropdown-target="content">
-      <% category.rss_feeds.each do |rlink| %>
+      <% category.rss_feeds.each do |feed| %>
         <div class="nav-list-item">
           <span class="nav-list-item-text nav-list-item-text-bold">
-            <%= link_to "test", rlink.link %>
+            <%= link_to feed.link, rss_feed_path(feed), data: { turbo_stream: 'top' } %>
           </span>
         </div>
       <% end %>

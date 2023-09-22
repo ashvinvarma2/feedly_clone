@@ -1,7 +1,41 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
+import 'popper.js'
 import * as bootstrap from "bootstrap"
+
+import jquery from 'jquery'
+window.jQuery = jquery
+window.$ = jquery
+
+const myDefaultAllowList = bootstrap.Popover.Default.allowList
+myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream']
+
+document.addEventListener('mouseover', (event) => {
+  const target = event.target;
+
+  if (target.dataset.bsToggle === 'popover') {
+    const popover = document.querySelector('.popover'); // Assuming the popover element has a class 'popover'
+    if (!popover) {
+      new bootstrap.Popover(target, {
+        html: true
+      });
+    }
+  };
+
+  if (target.classList.contains('add-button')) {
+    target.addEventListener('click', function() {
+      var popover = document.querySelector('.custom-popover');
+      if (popover) {
+        popover.remove();
+      }
+    });
+  }
+});
+
+
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl, {html: true}))
 
 var menuContainer = document.querySelector('.navbar-container');
 var menuBtn = document.querySelector('.navbar-header .logo .logoImg i');

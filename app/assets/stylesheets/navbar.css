@@ -248,6 +248,7 @@ ul.navbar-links li a .nav-icon i {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	max-width: 215px;
 }
 
 .nav-list-item-text-bold{

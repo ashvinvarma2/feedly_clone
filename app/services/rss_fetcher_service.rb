@@ -9,21 +9,21 @@ class RssFetcherService
     xml_content = HTTParty.get(@rss_feed_url).body
     doc = Nokogiri::XML(xml_content)
 
-    debugger
-    namespaces = { 'media' => 'http://search.yahoo.com/mrss/' }
-
-    items = doc.xpath('//item')
+    page_title = doc.at_xpath("//channel/image/title").text
+    website_url = doc.at_xpath("//channel/link").text
+    favicon_url = fetch_favicon(website_url)
+    items = doc.xpath("//item")
     results = []
 
     items.each do |item|
       title = item.at_xpath('./title').text
       description = item.at_xpath('./description').text
       pub_date = item.at_xpath('./pubDate').text
-      website_url = doc.at_xpath('//channel/link').text
+
       article_link = item.at_xpath('./link').text
 
-      media_content_element = item.at_xpath('./media:content', namespaces)
-      media_url = media_content_element ? media_content_element['url'] : ""
+      media_element = find_media_element(item)
+      media_url = media_element ? media_element["url"] : "/og-image.png"
 
       results << {
         title: title,
@@ -31,7 +31,9 @@ class RssFetcherService
         pub_date: pub_date,
         image_url: media_url,
         website_url: website_url,
-        article_link: article_link
+        article_link: article_link,
+        favicon_url: favicon_url,
+        page_title: page_title
       }
     end
 
@@ -41,16 +43,40 @@ class RssFetcherService
   def fetch_rss_details
     xml_content = HTTParty.get(@rss_feed_url).body
     doc = Nokogiri::XML(xml_content)
+    website_url = doc.at_xpath('//image/link').text
 
     result = []
     result << {
       title: doc.at_xpath('//channel/image/title').text,
       logo_url: doc.at_xpath('//channel/image/url').text,
-
-      favicon_element: doc.at_xpath('//link[@rel="shortcut icon"]')
-
+      rss_link: @rss_feed_url,
+      favicon_url: fetch_favicon(website_url)
     }
 
     return result
+  end
+
+  def find_media_element(item)
+    # List of possible media elements to check
+    media_elements = [
+      item.at_xpath('./media:content', 'media' => 'http://search.yahoo.com/mrss/'),
+      item.at_xpath('./media:thumbnail', 'media' => 'http://search.yahoo.com/mrss/'),
+      # Add more media elements as needed
+    ]
+    # Return the first non-nil media element found
+    media_elements.compact.first
+  end
+
+  def fetch_favicon(website_url)
+    begin
+      html_content = URI.open(website_url)
+      page = Nokogiri::HTML(html_content)
+      favicon_element = page.at('link[rel="icon"]') || page.at('link[rel="shortcut icon"]')
+      favicon_url = favicon_element['href'] if favicon_element
+      return favicon_url
+    rescue StandardError => e
+      puts "Error fetching favicon: #{e.message}"
+      return nil
+    end
   end
 end
