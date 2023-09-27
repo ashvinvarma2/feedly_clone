@@ -10,6 +10,8 @@ window.$ = jquery
 
 const myDefaultAllowList = bootstrap.Popover.Default.allowList
 myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream']
+myDefaultAllowList.span = ['data-action', 'data-view', 'data-view-switcher-target']
+myDefaultAllowList.ul = ['data-controller']
 
 document.addEventListener('mouseover', (event) => {
   const target = event.target;
@@ -32,7 +34,6 @@ document.addEventListener('mouseover', (event) => {
     });
   }
 });
-
 
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl, {html: true}))

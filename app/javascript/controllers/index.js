@@ -4,15 +4,20 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import CategoryFormController from "./category_form_controller"
+application.register("category-form", CategoryFormController)
 
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
 
-import CategoryFormController from "./category_form_controller"
-application.register("category_form", CategoryFormController)
+import FeedModalController from "./feed_modal_controller"
+application.register("feed-modal", FeedModalController)
+
+import HelloController from "./hello_controller"
+application.register("hello", HelloController)
 
 import TopicController from "./topic_controller"
 application.register("topic", TopicController)
 
+import ViewSwitcherController from "./view_switcher_controller"
+application.register("view-switcher", ViewSwitcherController)

@@ -1,17 +1,79 @@
 
-<div class="row" style="margin-left: 10px;">
-  <h2><%= category.name%></h2>
+<% category_content = "<ul data-controller='view-switcher'>
+                          <li>
+                            <div class='list-item'>
+                              <span data-action='click->view-switcher#switchView' data-view='card-view' data-view-switcher-target='card'>
+                                <i class='fa-regular fa-circle-dot'></i>
+                                Cards View
+                              </span>
+                            </div>
+                          </li>
+                          </li>
+                          <li>
+                            <div class='list-item'>
+                              <span data-action='click->view-switcher#switchView' data-view='magazine-view' data-view-switcher-target='magazine'>
+                                <i class='fa-regular fa-circle-dot'></i>
+                                Magazine View
+                              </span>
+                            </div>
+                          </li>
+                        </ul>" %>
+
+<div class="row" style="align-items: center;">
+  <div class="col-md-8 feed-title">
+    <%= category.name%>
+  </div>
+  <div class="col-md-4 feed-actions">
+    <span>
+      <i id="list-icon" class="fa-solid fa-list" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-content="<%= category_content%>"></i>
+      <i class="fa-regular fa-heart"></i>
+    </span>
+  </div>
 </div>
-<div class="row" style="margin-top: 40px;">
-  <% result.each do |r| %>
-    <div class="col-md-4">
-      <div class="card-layout">
+
+<div data-controller="feed-modal">
+  <div class="row card-view" style="margin-top: 40px;" id="results-container">
+    <% result.each do |r| %>
+      <div class="feed-layout" data-bs-toggle="modal" data-bs-target="#feedModal" data-action="click->feed-modal#showModal" data-feed-data="<%= { title: r[:title], image_url: r[:image_url], description: r[:description], page_title: r[:page_title], pub_date: r[:pub_date], article_link: r[:article_link] }.to_json %>">
         <img src="<%= r[:image_url]%>" class="img-card" width="100%" id=logo alt="Logo image" />
-        <div class="card-layout-content">
+        <div class="bookmark-icons">
+          <i class="fa-regular fa-bookmark"></i>
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="feed-layout-content">
           <p class="title"><%= r[:title]%></p>
           <p class="description"><%= r[:description]%> </p>
         </div>
       </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="modal right" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true" data-feed-modal-target="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="category_form">
+          <h2>
+            <span id="feedTitle"></span>
+            <div>
+              <span id="feedPageTitle"></span> / <span id="feedTime"></span>
+            </div>
+          </h2>
+          <span id="feedImage"></span>
+          <div style="margin-top: 20px">
+            <span id="feedDescription"></span>
+          </div>
+          <div>
+            <span id="feedVisitURL"></span>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>

@@ -5,7 +5,7 @@
 }
 
 .modal.right .modal-content {
-  width: 77rem !important;
+  width: 81rem !important;
   height: 100%;
   overflow-y: auto;
   background-color: var(--body-clr) !important
@@ -52,7 +52,7 @@
 }
 
 .close-button {
-  color: var(--text-clr);
+  color: #757575;
   position: absolute;
   font-size: 25px;
 }
