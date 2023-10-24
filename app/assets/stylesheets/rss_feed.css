@@ -68,8 +68,8 @@
 .visit-button {
   text-decoration: none;
   background-color: transparent;
-  border: 1px solid #757575;
-  color: #757575;
+  border: 1px solid var(--border-clr);
+  color: var(--border-clr);
   padding: 7px 30px;
   font-size: 16px;
   cursor: pointer;
@@ -93,6 +93,10 @@
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: .5rem;
   --bs-popover-bg: var(--body-clr);
+}
+
+.custom-popover.board-popover{
+  width: 300px;
 }
 
 .custom-popover .popover-body {
@@ -122,11 +126,59 @@
 
 .custom-popover ul li .category-name{
   flex: 60%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .custom-popover ul li .add-category{
   flex: 40%;
 }
+
+.custom-popover.board-popover ul li .category-name{
+  flex: 70%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-popover.board-popover ul li .category-name i.fa-star{
+  color: var(--border-clr);
+  padding: 5px 5px;
+  font-size: 17px;
+}
+
+.custom-popover.board-popover ul li .add-category{
+  flex: 30%;
+}
+
+.custom-popover.board-popover ul li .add-category .add-button {
+  margin-left: 7px;
+  padding: 4px 20px;
+}
+
+.custom-popover.board-popover ul li .add-category .add-button i{
+  margin-left: 1px;
+  margin-right: -2px;
+}
+
+.custom-popover.board-popover ul li .add-category .remove-button{
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid red;
+  color: red;
+  padding: 3px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.custom-popover.board-popover ul li .add-category .remove-button i{
+  margin-left: 1px;
+  margin-right: -2px;
+}
+
 
 .custom-popover ul li:hover{
   background-color: var(--navbar-hover-clr);
@@ -185,6 +237,12 @@
   white-space: pre-wrap;
 }
 
+.feed-layout-content .pub-date {
+  margin-bottom: 0px;
+  font-size: 15px;
+  color: var(--border-clr);
+}
+
 /* Style for card view feeds */
 .card-view .feed-layout {
   position: relative;
@@ -193,6 +251,8 @@
   display: block;
   margin-bottom: 20px;
   cursor: pointer;
+  margin-bottom: 50px;
+  padding: 16px 15px 15px 15px;
 }
 
 .card-view .img-card {
@@ -203,27 +263,69 @@
 .card-view .bookmark-icons {
   display: none;
   position: absolute;
-  top: 10px;
+  top: 25px;
   right: 27px;
-  width: 60px;
+  width: 100px;
   font-size: 20px;
   color: var(--text-clr);
 }
 
-.feed-layout:hover .bookmark-icons {
+/* Style for title-only view */
+.title-view .feed-layout {
+  width: 100%;
+  margin-right: 30px;
   display: block;
+  margin-bottom: 20px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  padding: 16px 15px 15px 15px;
 }
+
+.title-view .img-card {
+  display: none;
+}
+
+.title-view .bookmark-icons {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 27px;
+  width: 100px;
+  font-size: 20px;
+  color: var(--text-clr);
+}
+
+.bookmark-icons a{
+  color: var(--text-clr);
+  text-decoration: none;
+}
+
+.bookmark-icons a i.fa-solid.fa-bookmark{
+  color: #2bb24c !important;
+}
+
+.bookmark-icons a i.fa-solid.fa-check.marked-read{
+  color: #2bb24c !important;
+}
+
+/* .feed-layout:hover .bookmark-icons {
+  display: block;
+} */
+
+/* .board-popover:hover .bookmark-icons {
+  display: block;
+} */
 
 .feed-layout:hover .img-card {
   opacity: 0.3;
 }
 
-/* Style for magazine view feeds */
 .magazine-view .feed-layout {
   display: inline-flex;
-  width: 100%;
+  width: 95%;
   margin: 1%;
   cursor: pointer;
+  position: relative;
 }
 
 .magazine-view .img-card {
@@ -235,13 +337,21 @@
 .magazine-view .bookmark-icons {
   display: none;
   position: absolute;
-  top: 10px;
-  right: 27px;
-  width: 60px;
+  top: -3px;
+  right: 17px;
+  width: 100px;
   font-size: 20px;
   color: var(--text-clr);
 }
 
+.magazine-view .feed-layout-content .title{
+  -webkit-line-clamp: 1;
+  width: 70%;
+}
+
+.magazine-view .feed-layout-content .description {
+  -webkit-line-clamp: 2;
+}
 
 .feed-actions i {
   margin-left: 10px;
@@ -251,6 +361,10 @@
 
 .feed-actions span {
   margin-left: 63%;
+}
+
+.feed-actions span i.fa-solid.fa-heart{
+  color: var(--button-clr);
 }
 
 .list-item{
@@ -295,6 +409,22 @@
   white-space: pre-wrap;
 }
 
-.bookmark-icons i{
+.bookmark-icons i, .bookmark-icons img{
   padding-left: 8px;
+}
+
+.board-icon{
+  margin-left: 13px;
+  margin-bottom: 6px;
+}
+
+.board-icon-color{
+  color: var(--text-clr);;
+}
+
+.no-feeds{
+  text-align: center !important;
+  width: 75%;
+  margin-left: 11%;
+  margin-top: 1% !important;
 }

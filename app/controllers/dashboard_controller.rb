@@ -1,11 +1,53 @@
 class DashboardController < ApplicationController
+  before_action :set_dashboard, only: :index
 
   def index
     @category = Category.new
-    @categories = Category.all
+    set_dashboard
+
+    sql_query =
+      "SELECT
+        articles.*,
+        CASE WHEN user_articles.id IS NOT NULL THEN true ELSE false END AS marked_as_read,
+        CASE WHEN user_articles.read_later = true THEN true ELSE false END AS read_later
+      FROM articles
+      LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}
+      WHERE DATE(articles.pub_date) = CURRENT_DATE"
+
+    # categories = Category.all
+    # result = []
+
+    # categories.each do |category|
+    #   rss_feeds = category.rss_feeds.includes(:articles).limit(2)
+
+    #   rss_feeds_data = rss_feeds.map do |rss_feed|
+    #     debugger
+    #     {
+    #       articles: rss_feed.articles.take(2)
+    #     }
+    #   end
+
+    #   result << {
+    #     category_name: category.name,
+    #     rss_feeds: rss_feeds_data
+    #   }
+    # end
+
+    # debugger
+
+
+    @result = ActiveRecord::Base.connection.execute(sql_query).to_a
     respond_to do |format|
       format.turbo_stream
       format.html
     end
+  end
+
+  private
+
+  def set_dashboard
+    @categories = current_user.categories
+    @favorites = current_user.favorites
+    @boards = current_user.boards
   end
 end

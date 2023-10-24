@@ -109,19 +109,34 @@
 </nav>
 <div class="navbar-container2">
   <div class="m-t-2">
-    <div class="nav-list-item">
-      <span class="nav-icon"><img src="logo4.png" width="20px" height="20px" id=logo alt="Logo image" /></span>
-      <span class="nav-list-item-text nav-list-item-text-bold">
-        Today
-      </span>
-    </div>
-    <div class="nav-list-item">
-      <span class="nav-icon"><i class="fa-regular fa-bookmark"></i></span>
-      <span class="nav-list-item-text nav-list-item-text-bold">
-        Read Later
-      </span>
-    </div>
+
+    <%= link_to dashboard_index_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+      <div class="nav-list-item">
+        <span class="nav-icon"><img src="logo4.png" width="20px" height="20px" id=logo alt="Logo image" /></span>
+        <span class="nav-list-item-text nav-list-item-text-bold">
+          Today
+        </span>
+      </div>
+    <% end %>
+
+    <%= link_to show_read_later_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+      <div class="nav-list-item">
+        <span class="nav-icon"><i class="fa-regular fa-bookmark"></i></span>
+        <span class="nav-list-item-text nav-list-item-text-bold">
+          Read Later
+        </span>
+      </div>
+    <% end %>
   </div>
+
+  <%= turbo_frame_tag "favorites" do %>
+    <div class="nav-heading">
+      <span>FAVORITES</span>
+    </div>
+
+    <%= render partial: "favorites/favorite", collection: @favorites, as: :favorite %>
+  <% end %>
+
   <div class="nav-heading">
     <span>FEEDS</span>
   </div>
@@ -137,10 +152,32 @@
     <%= render partial: "categories/category", collection: @categories, as: :category %>
   <% end %>
 
-  <div class="nav-list-item">
+  <div class="nav-list-item" style="margin-top:20px;">
     <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Create new folder
     </span>
   </div>
-</div>
 
+  <%= turbo_frame_tag "boards" do %>
+    <div class="nav-heading">
+      <span>BOARDS</span>
+    </div>
+
+    <%= render partial: "boards/board", collection: @boards, as: :board %>
+  <% end %>
+
+  <div class="nav-list-item" style="margin-top:20px;">
+    <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#boardModal">
+      Create new board
+    </span>
+  </div>
+
+  <div class="nav-list-item" style="margin-top: 30px">
+    <%= link_to recently_read_feeds_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+      <span class="nav-icon"><i class="fa-regular fa-clock"></i></span>
+      <span class="nav-list-item-text nav-list-item-text-bold">
+        Recently Read
+      </span>
+    <% end %>
+  </div>
+</div>

@@ -10,8 +10,19 @@
     <div class="dropdown-content" data-dropdown-target="content">
       <% category.rss_feeds.each do |feed| %>
         <div class="nav-list-item">
-          <span class="nav-list-item-text nav-list-item-text-bold">
-            <%= link_to feed.link, rss_feed_path(feed), data: { turbo_stream: 'top' } %>
+          <span class="nav-list-item-text">
+            <%= link_to rss_feed_path(feed, category_id: category.id), data: { turbo_stream: 'top' } do %>
+              <span>
+                <% if feed.favicon_url %>
+                  <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
+                <% else %>
+                  <img src="feedly_favicon.png" height="20" width="20" id=logo alt="Logo image" />
+                <% end %>
+              </span>
+              <span style="margin-left: 10px">
+                <%= feed.title  %>
+              </span>
+            <% end %>
           </span>
         </div>
       <% end %>

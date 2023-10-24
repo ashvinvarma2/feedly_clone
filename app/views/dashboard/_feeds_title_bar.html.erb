@@ -1,0 +1,46 @@
+<% view_switcher_content = "<ul data-controller='view-switcher'>
+                          <li>
+                            <div class='list-item'>
+                              <span data-action='click->view-switcher#switchView' data-view='card-view' data-view-switcher-target='card'>
+                                <i class='fa-regular fa-circle-dot'></i>
+                                Cards View
+                              </span>
+                            </div>
+                          </li>
+                          </li>
+                          <li>
+                            <div class='list-item'>
+                              <span data-action='click->view-switcher#switchView' data-view='magazine-view' data-view-switcher-target='magazine'>
+                                <i class='fa-regular fa-circle-dot'></i>
+                                Magazine View
+                              </span>
+                            </div>
+                          </li>
+                          <li>
+                            <div class='list-item'>
+                              <span data-action='click->view-switcher#switchView' data-view='title-view' data-view-switcher-target='title'>
+                                <i class='fa-regular fa-circle-dot'></i>
+                                Title-only View
+                              </span>
+                            </div>
+                          </li>
+                        </ul>" %>
+
+<% show_favorite = can_show_favorite_button? %>
+<% marked_favorite = @favoritable&.favorites&.where(user_id: current_user.id)&.any? %>
+
+<div class="row" style="align-items: center;">
+  <div class="col-md-8 feed-title">
+    <%= title.capitalize %>
+  </div>
+  <div class="col-md-4 feed-actions" data-controller="feed-actions">
+    <span>
+      <% if can_show_favorite_button? %>
+        <%= link_to handle_favorite_path(favoritable_id: @favoritable.id, favoritable_type: @favoritable.class), style: "text-decoration: none;", data: { turbo_stream: 'true'} do %>
+          <i class="<%= marked_favorite ? 'fa-solid' : 'fa-regular'%> fa-heart" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= marked_favorite ? 'Remove from Favorites' : 'Mark Favorite'%>" data-action="click->feed-actions#handleFavorite"></i>
+        <% end %>
+      <% end %>
+      <i id="list-icon" class="fa-solid fa-list" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-content="<%= view_switcher_content %>"></i>
+    </span>
+  </div>
+</div>

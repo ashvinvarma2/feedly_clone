@@ -9,10 +9,25 @@ window.jQuery = jquery
 window.$ = jquery
 
 const myDefaultAllowList = bootstrap.Popover.Default.allowList
-myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream']
+myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream', 'data-bs-trigger', 'tabindex']
 myDefaultAllowList.span = ['data-action', 'data-view', 'data-view-switcher-target']
 myDefaultAllowList.ul = ['data-controller']
 
+// Tooptips
+document.addEventListener('mouseover', (event) => {
+  const target = event.target;
+
+  if (target.dataset.bsToggle === 'tooltip') {
+    const tooltip = new bootstrap.Tooltip(target);
+    tooltip.show();
+
+    target.addEventListener('mouseout', () => {
+      tooltip.hide();
+    });
+  }
+});
+
+// Here we're handling the popovers
 document.addEventListener('mouseover', (event) => {
   const target = event.target;
 
@@ -37,6 +52,9 @@ document.addEventListener('mouseover', (event) => {
 
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl, {html: true}))
+
+// const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+// const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 var menuContainer = document.querySelector('.navbar-container');
 var menuBtn = document.querySelector('.navbar-header .logo .logoImg i');

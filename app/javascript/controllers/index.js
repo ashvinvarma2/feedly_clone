@@ -10,6 +10,12 @@ application.register("category-form", CategoryFormController)
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
 
+import ErrorHandlerController from "./error_handler_controller"
+application.register("error-handler", ErrorHandlerController)
+
+import FeedActionsController from "./feed_actions_controller"
+application.register("feed-actions", FeedActionsController)
+
 import FeedModalController from "./feed_modal_controller"
 application.register("feed-modal", FeedModalController)
 

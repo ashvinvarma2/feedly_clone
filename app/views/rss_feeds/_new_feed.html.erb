@@ -2,20 +2,29 @@
   <h2>
     Follow your favorite websites
   </h2>
-  <%= form_with(url: search_rss_feeds_path, method: :get, data: { turbo_stream: "top", action: "turbo:submit->topic#handleSuccess" }) do |form| %>
 
+  <%= form_with(url: search_rss_feeds_path, method: :get, data: { turbo_stream: "true" }, id: "rss-search-form", data: { controller: "error-handler", error_message: @error_message, "error-handler-target"=>"form" }) do |form| %>
     <div style="margin-bottom: 1.5rem;">
-      <div class="topic-input" data-topic-target="input">
+      <div class="topic-input">
         <div>
           <i class="fa fa-search"></i>
         </div>
-          <%= form.text_field :link, placeholder: "Topic, type, project, etc.", autocomplete: "off", class: "category-text-field", id: "search-input" %>
+        <%= form.text_field :link, placeholder: "Topic, type, project, etc.", autocomplete: "off", class: "category-text-field", id: "search-input", "data-error-handler-target"=>"link" %>
       </div>
+      <div class="error-message" data-error-handler-target="errorMessage">
+        <span>RSS Link can't be blank</span>
+      </div>
+
+      <% if @error_message %>
+        <div class="error-message" style="display: block;" data-error-handler-target="errorMessage">
+          <span><%= @error_message %></span>
+        </div>
+      <% end %>
     </div>
     <div>
-      <%= form.submit 'SAVE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+      <%= form.submit 'SAVE', class: "action-btn save-category", data: { action: "error-handler#submit" } %>
       <button type="button" class="action-btn cancel-category">
-        <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+        <span class="close-button" type="button" aria-label="Close">
           CANCEL
         </span>
       </button>

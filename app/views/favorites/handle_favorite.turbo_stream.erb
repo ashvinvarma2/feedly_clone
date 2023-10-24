@@ -1,0 +1,5 @@
+<% if @favorite.destroyed? %>
+  <%= turbo_stream.remove "favorite_#{@favorite.id}" %>
+<% else %>
+  <%= turbo_stream.append "favorites", @favorite %>
+<% end %>

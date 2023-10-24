@@ -1,0 +1,4 @@
+<%= turbo_stream.update "article_#{@article["id"]}",
+    partial: "boards/board_popover",
+    locals: { r: @article }
+%>

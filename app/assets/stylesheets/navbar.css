@@ -232,7 +232,7 @@ ul.navbar-links li a .nav-icon i {
 	font-size: 0.8125rem;
 	height: 2rem;
 	line-height: 1.5rem;
-	padding-left: 20px;
+	padding-left: 5px;
 	padding-right: 22px;
 	align-items: center;
 	display: flex;
@@ -249,6 +249,8 @@ ul.navbar-links li a .nav-icon i {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	max-width: 215px;
+	font-size: 15px;
+  letter-spacing: 0.7px;
 }
 
 .nav-list-item-text-bold{
@@ -269,17 +271,19 @@ ul.navbar-links li a .nav-icon i {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: var(--border-clr);
+	font-size: 18px;
 }
 
 .nav-heading {
-	margin-top: 40px;
-  padding: 0.475rem 28px 0.5rem 32px;
+	margin-top: 20px;
+  padding: 0.475rem 25px 0.1rem 20px;
 	width: 100%;
 }
 
 .nav-heading span{
-	font-size: 12px;
-	color: #a5a5a5;
+	font-size: 14px;
+	color: var(--border-clr);
 }
 
 .dropdown-content {
@@ -304,6 +308,7 @@ ul.navbar-links li a .nav-icon i {
 	justify-content: center;
 	align-items: center;
 	transition: transform 1.5s ease-in-out;
+	color: var(--border-clr);
 }
 /* Add styles to show the dropdown when open */
 .open {

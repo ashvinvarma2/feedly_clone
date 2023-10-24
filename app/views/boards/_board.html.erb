@@ -1,0 +1,8 @@
+<%= turbo_frame_tag board do %>
+  <div class="nav-list-item">
+    <span class="nav-icon"><i class="fa-regular fa-star"></i></span>
+    <span class="nav-list-item-text">
+      <%= link_to board.title, board_path(board), data: { turbo_stream: 'top' }, style: "text-decoration: none; color: var(--text-clr);" %>
+    </span>
+  </div>
+<% end %>

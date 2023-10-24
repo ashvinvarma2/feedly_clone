@@ -30,10 +30,7 @@ class RssFetcherService
         description: description,
         pub_date: pub_date,
         image_url: media_url,
-        website_url: website_url,
-        article_link: article_link,
-        favicon_url: favicon_url,
-        page_title: page_title
+        link: article_link,
       }
     end
 
@@ -45,22 +42,20 @@ class RssFetcherService
     doc = Nokogiri::XML(xml_content)
     website_url = doc.at_xpath('//image/link').text
 
-    result = []
-    result << {
-      title: doc.at_xpath('//channel/image/title').text,
-      logo_url: doc.at_xpath('//channel/image/url').text,
-      rss_link: @rss_feed_url,
-      favicon_url: fetch_favicon(website_url)
-    }
+    feed_details  = {}
 
-    return result
+    feed_details[:title] = doc.at_xpath("//channel/image/title").text
+    feed_details[:rss_link] = @rss_feed_url
+    feed_details[:favicon_url] =  fetch_favicon(website_url)
+
+    return feed_details
   end
 
   def find_media_element(item)
     # List of possible media elements to check
     media_elements = [
-      item.at_xpath('./media:content', 'media' => 'http://search.yahoo.com/mrss/'),
-      item.at_xpath('./media:thumbnail', 'media' => 'http://search.yahoo.com/mrss/'),
+      item.at_xpath("./media:content', 'media' => 'http://search.yahoo.com/mrss/"),
+      item.at_xpath("./media:thumbnail', 'media' => 'http://search.yahoo.com/mrss/"),
       # Add more media elements as needed
     ]
     # Return the first non-nil media element found
