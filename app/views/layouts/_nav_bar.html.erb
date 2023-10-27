@@ -5,8 +5,15 @@
 
     <div class="logo">
       <div class="logoImg">
-        <img src="logo1.png" width="50px" height="45px" id=logo alt="Logo image" />
+        <%= link_to dashboard_index_path, data: { turbo_stream: 'top' } do %>
+          <img src="logo1.png" width="35px" height="30px" id=logo alt="Logo image" />
+        <% end %>
       </div>
+    </div>
+    <div class="logo">
+      <span class="logoImg">
+        <%= inline_svg_tag "slider.svg" %>
+      </span>
     </div>
 
   </header>
@@ -16,44 +23,26 @@
   <!--  *****   Navbar Links Starts   *****  -->
 
     <ul class="navbar-links">
-
-      <li>
-        <%= link_to dashboard_index_path, data: { turbo_stream: 'top' } do %>
-          <span class="nav-icon" data-label="Dashboard">
-            <%= content_tag(:i, nil, class: "fa-solid fa-house", "aria-hidden" => "true") %>
-          </span>
-        <% end %>
-      </li>
-
       <li>
         <%= link_to new_rss_feed_path, data: { turbo_stream: 'true' } do %>
           <span class="nav-icon" data-label="Topic">
-            <%= content_tag(:i, nil, class: "fa fa-wifi", style: "transform: rotate(45deg);", "aria-hidden" => "true") %>
+            <%= inline_svg_tag "follow-page.svg" %>
           </span>
         <% end %>
       </li>
-    </div>
 
       <li>
-        <a href="#">
-          <span class="nav-icon" data-label="Notifications">
-            <i class="fa-regular fa-bell"></i>
+        <%= link_to "Search path", data: { turbo_stream: 'true' } do %>
+          <span class="nav-icon" data-label="Topic">
+            <%= inline_svg_tag "search-icon.svg" %>
           </span>
-        </a>
+        <% end %>
       </li>
 
       <li>
         <a href="#">
-          <span class="nav-icon" data-label="Components">
-            <i class="fa-solid fa-laptop"></i>
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="nav-icon" data-label="Analytics">
-            <i class="fa-solid fa-chart-line"></i>
+          <span class="nav-icon" data-label="Topic">
+            <%= inline_svg_tag "theme.svg" %>
           </span>
         </a>
       </li>

@@ -1,7 +1,6 @@
 .navbar-container .navbar-header {
 	position: relative;
-	height: 70px;
-	display: flex;
+	height: 120px;
 	align-items: center;
 	border-bottom: 0px solid var(--line-clr);
 }
@@ -9,7 +8,7 @@
 .navbar-header .logo {
 	display: flex;
 	align-items: center;
-	padding: 0px 10px;
+	padding-top: 1rem;
 }
 
 .navbar-header .logo .logoImg {
@@ -26,15 +25,19 @@
 	text-align: center;
 	line-height: 40px;
 	border-radius: 6px;
-	background-color: var(--menu-hover-clr);
 	color: var(--heading-clr);
+}
+
+.navbar-header .logo .logoImg svg {
+	margin-top: 10px;
+	color: var(--border-clr);
 }
 
 .navbar-container ul.navbar-links {
 	width: 100%;
-	margin-top: 11rem;
+	margin-top: 9rem;
 	list-style: none;
-	padding: 0px 10px;
+	padding: 0px 0px;
 }
 
 .navbar-container ul.navbar-links li {
@@ -44,8 +47,13 @@
 	transition: background 0.4s;
 }
 
-.navbar-container ul.navbar-links li:hover {
-	background-color: var(--menu-hover-clr);
+.navbar-container ul.navbar-links li:hover i {
+  color: var(--text-clr);
+}
+
+.navbar-container ul.navbar-links li:hover svg {
+  color: var(--text-clr);
+	transition: color 0s;
 }
 
 .navbar-container ul.navbar-links li a {
@@ -69,63 +77,19 @@ ul.navbar-links li a .nav-icon {
 	align-items: center;
 }
 
-/* Labels Starts */
-ul.navbar-links li a .nav-icon::before {
-	content: attr(data-label);
-	position: absolute;
-	top: calc(50% - 8px);
-	transform: translateY(-50%);
-	left: calc(100% + 20px);
-	background-color: var(--menu-hover-clr);
-	color: var(--text-clr);
-	white-space: nowrap;
-	padding: 10px;
-	border-radius: 6px;
-	opacity: 0;
-	pointer-events: none;
-	visibility: hidden;
-	/*z-index: -1;*/
-	transition: top 0.4s ease, opacity 0.4s ease;
-}
-
-ul.navbar-links li a .nav-icon:hover::before {
-	opacity: 1;
-	visibility: visible;
-	/*z-index: 1;*/
-	top: 50%;
-}
-
-ul.navbar-links li a .nav-icon::after {
-	content: '';
-	position: absolute;
-	width: 0px;
-	height: 0px;
-	top: calc(50% - 8px);
-	transform: translateY(-50%);
-	right: -20px;
-	border-top: 5px solid transparent;
-	border-right: 6px solid var(--menu-hover-clr);
-	border-bottom: 5px solid transparent;
-	border-left: 5px solid transparent;
-	opacity: 0;
-	pointer-events: none;
-	visibility: hidden;
-	/*z-index: -1;*/
-	transition: top 0.4s ease, opacity 0.4s ease;
-}
-
-ul.navbar-links li a .nav-icon:hover::after {
-	opacity: 1;
-	visibility: visible;
-	top: 50%;
-}
-
 /* Labels */
 
 ul.navbar-links li a .nav-icon i {
 	font-size: 20px;
-	color: var(--heading-clr);
+	color: var(--border-clr);
 }
+
+ul.navbar-links li a .nav-icon svg {
+	font-size: 20px;
+	color: var(--border-clr);
+}
+
+
 
 .navbar-container .navbar-footer {
 	position: absolute;

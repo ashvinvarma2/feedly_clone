@@ -95,6 +95,14 @@
   --bs-popover-bg: var(--body-clr);
 }
 
+.tooltip.show{
+  background-color: var(--body-clr);;
+  box-shadow: 0 2px 8px rgba(255,255,255,.2);
+  border-radius: 1px solid var(--line-clr)!important;
+  border-radius: 0px !important;
+}
+
+
 .custom-popover.board-popover{
   width: 300px;
 }

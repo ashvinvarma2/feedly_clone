@@ -56,13 +56,14 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-var menuContainer = document.querySelector('.navbar-container');
-var menuBtn = document.querySelector('.navbar-header .logo .logoImg i');
+var menuContainer = document.querySelector('.navbar-container2');
+var menuBtn = document.querySelector('.navbar-header .logo .logoImg svg');
 var body = document.querySelector('body');
 var toggleBtn = document.querySelector('.btn-container .button');
 var darkModeText = document.querySelector('.dark-light-mode .text');
 
 toggleBtn.addEventListener('click', darkMode);
+menuBtn.addEventListener('click', menuToggle);
 
 function menuToggle(){
   menuContainer.classList.toggle('active');
@@ -81,6 +82,7 @@ if (JSON.parse(localStorage.getItem("darkModeoOn")) == true) {
   toggleBtn.classList.toggle('active');
   body.classList.toggle('active');
 }
+
 function darkMode(){
   localStorage.setItem("darkModeoOn", !(JSON.parse(localStorage.getItem("darkModeoOn"))));
   toggleBtn.classList.toggle('active');
