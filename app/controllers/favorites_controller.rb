@@ -5,10 +5,11 @@ class FavoritesController < ApplicationController
     @favorite = current_user.favorites.find_or_initialize_by(favoritable: @favoritable)
     if @favorite.persisted?
       @favorite.destroy
+      flash[:toastr] = { "success" => "#{@favorite.favoritable_type} removed from favorites." }
     else
       @favorite.save
+      flash[:toastr] = { "success" => "#{@favorite.favoritable_type} added to favorites." }
     end
-
     turbo_stream
   end
 

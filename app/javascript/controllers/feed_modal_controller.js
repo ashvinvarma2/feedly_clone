@@ -29,6 +29,19 @@ export default class extends Controller {
 
   markRead(event){
     event.target.classList.toggle('marked-read');
+    if (event.target.classList.contains('marked-read')) {
+      event.currentTarget.querySelector("i").setAttribute('data-bs-original-title', 'Mark Unread');
+      event.currentTarget.querySelector("i").setAttribute('aria-label', 'Mark Unread');
+    } else {
+      event.currentTarget.querySelector("i").setAttribute('data-bs-original-title', 'Mark Read');
+      event.currentTarget.querySelector("i").setAttribute('aria-label', 'Mark Read');
+    }
+
+  }
+
+  markReadAndHide(event){
+    document.querySelector('.tooltip').remove()
+    this.feedLayoutTarget.remove();
   }
 
   saveReadLater(event){
@@ -43,7 +56,7 @@ export default class extends Controller {
 
 
   showActions(event){
-    this.feedActionsTarget.style.display = "block";
+    this.feedActionsTarget.style.display = "flex";
     this.feedLayoutTarget.addEventListener("mouseleave", this.hideActions.bind(this));
     const popover = document.querySelector('.custom-popover.board-popover');
     if (popover) {

@@ -1,12 +1,12 @@
 <%= render partial: "dashboard/feeds_title_bar", locals: { title: title, category: @category } %>
-
-<div class="row card-view" style="margin-top: 40px;" id="results-container">
+<% can_show_hide_button = can_show_hide_button? %>
+<div class="row <%= default_view %>" style="margin-top: 40px;" id="results-container">
   <% if result.any? %>
     <% result.each do |r| %>
+      <% next if r["marked_as_read_and_hide"] %>
       <div class="feed-layout" data-controller="feed-modal" data-feed-modal-target="feedLayout" data-turbo-frame="<%= r %>">
         <img src="<%= r["image_url"]%>" class="img-card" width="100%" id=logo alt="Logo image" />
         <div class="bookmark-icons" data-feed-modal-target="feedActions">
-
           <%= link_to save_read_later_rss_feeds_path(id: r["rss_feed_id"], article_id: r["id"]), data: { turbo_stream: 'top' } do %>
             <i class="<%= r["read_later"] ?  "fa-solid" : "fa-regular" %> fa-bookmark" data-bs-toggle="tooltip" data-bs-placement="top" title="Read Later" data-action="click->feed-modal#saveReadLater"></i>
           <% end %>
@@ -17,6 +17,12 @@
 
           <%= link_to mark_read_unread_rss_feeds_path(id: r["rss_feed_id"], article_id: r["id"]), data: { turbo_stream: 'top', action: "click->feed-modal#markRead"} do %>
             <i class="fa-solid fa-check <%= 'marked-read' if r['marked_as_read'] %>" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= r['marked_as_read'] ? 'Mark Unread' : 'Mark Read'%>"></i>
+          <% end %>
+
+          <% if can_show_hide_button %>
+            <%= link_to mark_read_unread_rss_feeds_path(id: r["rss_feed_id"], article_id: r["id"], hide: true), data: { turbo_stream: 'top', action: "click->feed-modal#markReadAndHide"} do %>
+              <i class="fa-solid fa-xmark" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Read and hide"></i>
+            <% end %>
           <% end %>
         </div>
         <div class="feed-layout-content" data-bs-toggle="modal" data-bs-target="#feedModal" data-action="click->feed-modal#showModal" data-feed-data="<%= { id: r["id"], rss_feed_id: r["rss_feed_id"], title: r["title"], image_url: r["image_url"], description: r["description"], page_title: r["page_title"], pub_date: r["pub_date"], article_link: r["article_link"], read_later: r["read_later"] }.to_json %>">

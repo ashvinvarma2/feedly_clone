@@ -14,7 +14,8 @@
     "popper.js": "^1.16.1",
     "postcss": "^8.4.29",
     "postcss-cli": "^10.1.0",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "toastr": "^2.1.4"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",

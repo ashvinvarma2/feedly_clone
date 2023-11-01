@@ -1,4 +1,4 @@
-<div class="container" style="padding-left: 12%; padding-right: 12%;">
+<div class="container" style="padding-left: 12%; padding-right: 12%; margin-top: 2rem;">
   <%= turbo_frame_tag "dashboard_index", target: "_top" do %>
     <%= render partial: "rss_feeds/feeds", locals: { title: "Today's Feeds", result: @result } %>
   <% end %>

@@ -8,6 +8,7 @@ class CategoriesController < ApplicationController
       respond_to do |format|
         format.turbo_stream
         format.html { render json: { category: @category }, status: :created }
+        flash[:toastr] = { "success" => "Category Added!!" }
       end
 
     else
@@ -22,6 +23,7 @@ class CategoriesController < ApplicationController
     result = Article.select("articles.*,
                              bool_or(user_articles.marked_as_read) as marked_as_read,
                              bool_or(user_articles.read_later) as read_later,
+                             bool_or(user_articles.marked_as_read_and_hide) as marked_as_read_and_hide,
                              array_agg(board_articles.board_id) as b_ids")
                     .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
                     .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")

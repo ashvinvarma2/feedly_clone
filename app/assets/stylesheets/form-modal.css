@@ -28,10 +28,13 @@
 .modal.right .modal-body {
   background-color: var(--body-clr);
   display: block;
+  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 /*Right*/
 .modal.right .modal-dialog {
+  position: fixed;
   right: 42%;
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
@@ -40,13 +43,6 @@
 .modal.right.show .modal-dialog {
   transform: translateX(0);
 }
-
-.modal.right.hide .modal-dialog {
-  transform: translateX(100%);
-}
-/* .modal.right.hide .modal-dialog {
-  transform: translateX(0);
-} */
 
 /* ----- MODAL STYLE ----- */
 .modal-content {
@@ -252,3 +248,4 @@
   border-radius: 1px solid var(--line-clr)!important;
   border-radius: 0px !important;
 }
+

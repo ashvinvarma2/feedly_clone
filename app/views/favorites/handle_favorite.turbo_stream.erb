@@ -3,3 +3,5 @@
 <% else %>
   <%= turbo_stream.append "favorites", @favorite %>
 <% end %>
+
+<%= render_turbo_stream_flash_messages %>

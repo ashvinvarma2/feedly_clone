@@ -8,10 +8,34 @@ import jquery from 'jquery'
 window.jQuery = jquery
 window.$ = jquery
 
+import "toastr"
+window.toastr = require("toastr")
+window.$ = require("toastr")
+
 const myDefaultAllowList = bootstrap.Popover.Default.allowList
 myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream', 'data-bs-trigger', 'tabindex']
 myDefaultAllowList.span = ['data-action', 'data-view', 'data-view-switcher-target']
 myDefaultAllowList.ul = ['data-controller']
+
+// Toastr Library
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "9000",
+  "timeOut": "2000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
 
 // Tooptips
 document.addEventListener('mouseover', (event) => {
@@ -59,10 +83,8 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 var menuContainer = document.querySelector('.navbar-container2');
 var menuBtn = document.querySelector('.navbar-header .logo .logoImg svg');
 var body = document.querySelector('body');
-var toggleBtn = document.querySelector('.btn-container .button');
 var darkModeText = document.querySelector('.dark-light-mode .text');
 
-toggleBtn.addEventListener('click', darkMode);
 menuBtn.addEventListener('click', menuToggle);
 
 function menuToggle(){
@@ -79,20 +101,7 @@ document.addEventListener("turbo:before-fetch-response", () => {
 });
 
 if (JSON.parse(localStorage.getItem("darkModeoOn")) == true) {
-  toggleBtn.classList.toggle('active');
   body.classList.toggle('active');
-}
-
-function darkMode(){
-  localStorage.setItem("darkModeoOn", !(JSON.parse(localStorage.getItem("darkModeoOn"))));
-  toggleBtn.classList.toggle('active');
-  body.classList.toggle('active');
-  if(darkModeText.innerHTML == 'Light Mode'){
-    darkModeText.innerHTML = 'Dark Mode';
-  }
-  else{
-    darkModeText.innerHTML = 'Light Mode';
-  }
 }
 
 // // Get all anchor tags on the page

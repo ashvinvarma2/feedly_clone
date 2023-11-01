@@ -40,35 +40,42 @@
       </li>
 
       <li>
-        <a href="#">
-          <span class="nav-icon" data-label="Topic">
-            <%= inline_svg_tag "theme.svg" %>
-          </span>
+        <a tabindex="0"
+           data-bs-toggle="popover"
+           data-bs-placement="right"
+           data-bs-trigger="focus"
+           data-bs-custom-class="general-popover theme-popover"
+           data-bs-html="true"
+           data-bs-content="<%= list_themes %>">
+
+           <span class="nav-icon" data-label="Topic">
+             <%= inline_svg_tag "theme.svg" %>
+           </span>
         </a>
       </li>
 
       <li>
-        <a href="#">
-          <span class="nav-icon" data-label="Favorites">
-            <i class="fa-regular fa-heart"></i>
-          </span>
-        </a>
-      </li>
-
-        <li>
-        <a href="#">
+        <%= link_to show_read_later_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
           <span class="nav-icon" data-label="Saved">
             <i class="fa-regular fa-bookmark"></i>
           </span>
-        </a>
+        <% end %>
       </li>
 
       <li>
-        <a href="#">
+        <%= link_to recently_read_feeds_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+          <span class="nav-icon" data-label="Recently read">
+            <i class="fa-regular fa-clock"></i>
+          </span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to user_settings_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
           <span class="nav-icon" data-label="Settings">
             <i class="fa-solid fa-gear"></i>
           </span>
-        </a>
+        <% end %>
       </li>
     </ul>
 
@@ -85,13 +92,12 @@
       <% end %>
     </div>
 
-      <div class="dark-light-mode">
-        <div class="btn-container">
-          <div class="button"></div>
-        </div>
-        <div class="text">Light Mode</div>
+    <div class="dark-light-mode">
+      <div class="btn-container">
+        <div class="button"></div>
       </div>
-
+      <div class="text">Light Mode</div>
+    </div>
   </div>
   <!--  *****   Navbar Footer Ends   *****  -->
 
@@ -131,7 +137,9 @@
   </div>
 
   <div class="nav-list-item">
-    <span class="nav-icon"><i class="fa-solid fa-list"></i></span>
+    <span class="nav-icon" style="display: contents !important">
+      <%= inline_svg_tag "all-feeds-icon.svg" %>
+    </span>
     <span class="nav-list-item-text nav-list-item-text-bold">
       All
     </span>

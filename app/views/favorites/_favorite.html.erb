@@ -1,7 +1,7 @@
 
 <%= turbo_frame_tag favorite do %>
-  <div data-controller="dropdown">
-    <% if favorite.favoritable_type == "Category" %>
+  <% if favorite.favoritable_type == "Category" %>
+    <div data-controller="dropdown">
       <% category = favorite.favoritable %>
       <div class="nav-list-item">
         <span class="dropdown-icon" data-action="click->dropdown#toggle"><i class="fa-solid fa-chevron-right" data-dropdown-target="icon"></i></span>
@@ -14,7 +14,7 @@
         <% category.rss_feeds.each do |feed| %>
           <div class="nav-list-item">
             <span class="nav-list-item-text">
-              <%= link_to rss_feed_path(feed, category_id: category.id), data: { turbo_stream: 'top' } do %>
+              <%= link_to rss_feed_path(feed), data: { turbo_stream: 'top' } do %>
                 <span>
                   <% if feed.favicon_url %>
                     <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
@@ -30,6 +30,29 @@
           </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+  <% if favorite.favoritable_type == "Board" %>
+    <%= render partial: "boards/board", locals: { board: favorite.favoritable } %>
+  <% end %>
+
+  <% if favorite.favoritable_type == "RssFeed" %>
+    <% feed = favorite.favoritable %>
+    <div class="favorite-rss-feed nav-list-item">
+      <span class="nav-list-item-text">
+        <%= link_to rss_feed_path(feed), data: { turbo_stream: 'top' } do %>
+          <span>
+            <% if feed.favicon_url %>
+              <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
+            <% else %>
+              <img src="feedly-logo-icon.png" height="15" width="15" id=logo alt="Logo image" />
+            <% end %>
+          </span>
+          <span style="margin-left: 10px">
+            <%= feed.title  %>
+          </span>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
 <% end %>

@@ -227,7 +227,6 @@ ul.navbar-links li a .nav-icon svg {
 }
 
 .nav-list-item .nav-icon{
-	display: block;
 	position: relative;
 	width: 22px;
 	height: 100%;
@@ -280,3 +279,41 @@ ul.navbar-links li a .nav-icon svg {
 	transition: transform 1.5s ease-in-out;
   /* other styles */
 }
+
+.general-popover {
+  background-color: var(--body-clr);;
+	box-shadow: 0 2px 8px rgba(255,255,255,.2), 0 0 2px rgba(255,255,255,.58);
+  border-radius: 1px solid var(--line-clr)!important;
+  max-width: 500px !important;
+  padding: 0 !important;
+  width: 250px;
+  --bs-popover-max-width: 200px;
+  --bs-popover-header-bg: var(--bd-violet-bg);
+  --bs-popover-header-color: var(--bs-white);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+  --bs-popover-bg: var(--body-clr);
+}
+
+.general-popover ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0rem !important;
+}
+
+.general-popover.theme-popover {
+	width: 140px;
+}
+
+.general-popover.theme-popover li{
+	margin: 10px 0px 10px 0px;
+}
+
+.general-popover.theme-popover li i.fa-circle-dot {
+	color: var(--button-clr);
+}
+
+.general-popover.theme-popover li i.fa-circle {
+	color: var(--border-clr);
+}
+

@@ -3,6 +3,7 @@ class BoardsController < ApplicationController
 
   def create
     @board = current_user.boards.create(boards_params)
+    flash[:toastr] = { "success" => "Board Created Successfully!!" }
     turbo_stream
   end
 
@@ -25,9 +26,8 @@ class BoardsController < ApplicationController
     @article = Article.find(params[:article_id])
     board = Board.find(params[:board_id])
     board.articles << @article
-
     @article = @article.setup_article_for_feed(current_user)
-
+    flash[:toastr] = { "success" => "Article saved to board!" }
     turbo_stream
   end
 
@@ -37,6 +37,7 @@ class BoardsController < ApplicationController
     BoardArticle.find_by(article: @article, board: board).destroy
 
     @article = @article.setup_article_for_feed(current_user)
+    flash.now[:toastr] = { "success" => "Article removed from board!" }
 
     turbo_stream
   end

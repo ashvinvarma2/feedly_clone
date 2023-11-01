@@ -41,19 +41,25 @@ class RssFeedsController < ApplicationController
                       .select("articles.*,
                                bool_or(user_articles.marked_as_read) as marked_as_read,
                                bool_or(user_articles.read_later) as read_later,
+                               bool_or(user_articles.marked_as_read_and_hide) as marked_as_read_and_hide,
                                array_agg(board_articles.board_id) as b_ids")
                       .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
                       .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
                       .group("articles.id")
                       .order("articles.pub_date DESC")
-    @category = Category.find(params[:category_id])
-    render_feeds(@category.name, result)
+    render_feeds(@rss_feed.title, result)
   end
 
   def mark_read_unread
     article = Article.find(params[:article_id])
     user_article = UserArticle.find_or_initialize_by(user: current_user, article: article)
-    user_article.marked_as_read = !user_article.marked_as_read
+    if params[:hide] == "true"
+      user_article.marked_as_read = true
+      user_article.marked_as_read_and_hide =  true
+    else
+      user_article.marked_as_read = !user_article.marked_as_read
+      user_article.marked_as_read_and_hide = false unless user_article.marked_as_read
+    end
 
     if user_article.save
       if user_article.saved_change_to_marked_as_read?(from: true, to: false) && !user_article.read_later

@@ -22,6 +22,9 @@ application.register("feed-modal", FeedModalController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ThemeSwitcherController from "./theme_switcher_controller"
+application.register("theme-switcher", ThemeSwitcherController)
+
 import TopicController from "./topic_controller"
 application.register("topic", TopicController)
 

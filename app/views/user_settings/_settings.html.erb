@@ -1,0 +1,39 @@
+<div class="inside-container">
+  <h2 class="heading-title">
+    <div class="heading-description" style="margin-bottom: 15px;">
+      MANAGE ACCOUNT
+    </div>
+    General Settings
+  </h2>
+  <div class="row">
+    <div class="setting-box col-md-3" data-bs-toggle="modal" data-bs-target="#settingModal">
+      <span>General</span>
+      <span style="margin-top: 42px; color: var(--border-clr)">
+        <%= inline_svg_tag "setting.svg"%>
+      </span>
+    </div>
+    <div class="setting-box col-md-3">
+      <span>Your Profile</span>
+      <span style="margin-top: 42px; color: var(--border-clr)">
+        <%= inline_svg_tag "profile.svg"%>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="modal right" id="settingModal" tabindex="-1" aria-labelledby="settingModalLabel" aria-hidden="true" data-category_form-target="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      </div>
+      <div class="modal-body">
+        <%= turbo_frame_tag "general_settings" do %>
+          <%= render partial: "general_setting" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

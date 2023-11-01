@@ -11,7 +11,7 @@
       <% category.rss_feeds.each do |feed| %>
         <div class="nav-list-item">
           <span class="nav-list-item-text">
-            <%= link_to rss_feed_path(feed, category_id: category.id), data: { turbo_stream: 'top' } do %>
+            <%= link_to rss_feed_path(feed), data: { turbo_stream: 'top' } do %>
               <span>
                 <% if feed.favicon_url %>
                   <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />

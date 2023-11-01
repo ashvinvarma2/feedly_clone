@@ -1,0 +1,33 @@
+<div class="shadow shadow--top"></div>
+<div class="shadow shadow--bottom"></div>
+<div class="inside-container">
+  <h2 class="heading-title">
+    <div class="heading-description" style="margin-bottom: 15px;">
+      MANAGE ACCOUNT
+    </div>
+    General Settings
+  </h2>
+  <% user_settings = current_user.user_settings %>
+  <% Setting.all.each do |setting| %>
+    <div class="setting">
+      <p><%= setting.title %></p>
+      <span style="color: var(--border-clr);"><%= setting.description %></span>
+
+      <div>
+        <% user_setting_object = user_settings.find_by(setting_id: setting.id) %>
+        <% setting.options.each do |option| %>
+          <%= link_to user_setting_path(user_setting_object, option_id: option.id), style: "text-decoration: none; display: contents;", data: { 'turbo-method' => :put, turbo_stream: 'top' } do %>
+            <div class="option">
+              <% if user_setting_object.option_id == option.id %>
+                <%= inline_svg_tag "option-selected.svg" %>
+              <% else %>
+                <%= inline_svg_tag "option-circle.svg" %>
+              <% end %>
+              <%= option.title %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :rss_feeds
   resources :dashboard, only: :index
   resources :boards
+  resources :user_settings, only: %i[index update]
 
   root to: "dashboard#index"
 end
