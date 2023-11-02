@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: feedly_clone_new_development
+  database: feedly_clone_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: feedly_clone_new_test
+  database: feedly_clone_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: feedly_clone_new_production
+  database: feedly_clone_production
   username: feedly_clone_new
   password: <%= ENV["FEEDLY_CLONE_NEW_DATABASE_PASSWORD"] %>

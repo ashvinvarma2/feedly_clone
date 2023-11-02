@@ -35,7 +35,9 @@ class DashboardController < ApplicationController
 
     @result = ActiveRecord::Base.connection.execute(sql_query).to_a
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream do
+        render_feeds("Today's Feeds", @result)
+      end
       format.html
     end
   end

@@ -54,8 +54,8 @@ class RssFetcherService
   def find_media_element(item)
     # List of possible media elements to check
     media_elements = [
-      item.at_xpath("./media:content', 'media' => 'http://search.yahoo.com/mrss/"),
-      item.at_xpath("./media:thumbnail', 'media' => 'http://search.yahoo.com/mrss/"),
+      item.at_xpath("./media:content", "media" => "http://search.yahoo.com/mrss/"),
+      item.at_xpath("./media:thumbnail", "media" => "http://search.yahoo.com/mrss/")
       # Add more media elements as needed
     ]
     # Return the first non-nil media element found

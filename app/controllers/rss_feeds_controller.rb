@@ -13,6 +13,7 @@ class RssFeedsController < ApplicationController
   def add_to_category
     @category = Category.find(params[:category_id])
     RssFeedManagementService.new(params[:rss_link], @category).process_rss_feed
+    flash[:toastr] = { "success" => "Rss Feed Added Successfully!" }
     respond_to do |format|
       format.turbo_stream
     end

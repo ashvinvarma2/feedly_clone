@@ -15,10 +15,10 @@ class User < ApplicationRecord
   after_create :setup_user_settings
 
   def setup_user_settings
-    UserSetting.create(user_id: id, setting_id: 1, option_id: 1)
-    UserSetting.create(user_id: id, setting_id: 2, option_id: 6)
-    UserSetting.create(user_id: id, setting_id: 3, option_id: 8)
-    UserSetting.create(user_id: id, setting_id: 4, option_id: 11)
-    UserSetting.create(user_id: id, setting_id: 5, option_id: 12)
+    UserSetting.create!(user_id: id, setting_id: 1, option_id: 1)
+    UserSetting.create!(user_id: id, setting_id: 2, option_id: 6)
+    UserSetting.create!(user_id: id, setting_id: 3, option_id: 8)
+    UserSetting.create!(user_id: id, setting_id: 4, option_id: 9)
+    UserSetting.create!(user_id: id, setting_id: 5, option_id: 11)
   end
 end

@@ -10,13 +10,13 @@ general_settings = [
   ["Start Page", "Which page would you like Feedly to load when you start Feedly?", ["Today", "First Folder", "All"]],
   ["Default Presentation", "Change the presentation setting of all your feeds and boards.", ["Titles-Only View", "Magazine View", "Cards View"]],
   ["Default Sort", "Change the sort setting of all your feeds and boards.", ["Latest", "Oldest"]],
-  ["Hide Read Articles", "Control if Feedly shows or hides articles after you have had the chance to mark them as read. You can overwrite it for each feed and board.", ["Hide", "Show"]],
-  ["Show Slider", "This won't hide the slider automatically.", ["Hide", "Show"]]
+  ["Hide Read Articles Option", "Control if Feedly shows or hides articles after you have had the chance to mark them as read. If you select Show the only you'll see the button to mark read and hide.", ["Show", "Hide"]],
+  ["Show Slider", "This won't hide the slider automatically.", ["Show", "Hide"]]
 ]
 
 general_settings.each do |setting|
-  s = Setting.create(title: setting[0], description: setting[1])
+  s = Setting.find_or_create_by(title: setting[0], description: setting[1])
   setting[2].each do |option|
-    s.options.create(title: option)
+    s.options.find_or_create_by(title: option)
   end
 end
