@@ -80,4 +80,11 @@ module ApplicationHelper
       "card-view"
     end
   end
+
+  def show_sidebar?
+    option = current_user.user_settings
+                         .joins(:setting)
+                         .where(settings: { title: "Show Slider" }).first.option
+    return "active" if option.title == "Show"
+  end
 end

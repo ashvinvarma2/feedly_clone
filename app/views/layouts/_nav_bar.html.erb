@@ -102,7 +102,7 @@
   <!--  *****   Navbar Footer Ends   *****  -->
 
 </nav>
-<div class="navbar-container2">
+<div class="navbar-container2 <%= show_sidebar? %>">
   <div class="m-t-2">
 
     <%= link_to dashboard_index_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>

@@ -233,6 +233,8 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   white-space: pre-wrap;
+  text-decoration: none !important;
+  color: var(--text-clr);
 }
 
 .feed-layout-content .description {
