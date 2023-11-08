@@ -4,7 +4,7 @@
   <% if result.any? %>
     <% result.each do |r| %>
       <% next if r["marked_as_read_and_hide"] %>
-      <div class="feed-layout" data-controller="feed-modal" data-feed-modal-target="feedLayout" data-turbo-frame="<%= r %>">
+      <div class="feed-layout col-4" data-controller="feed-modal" data-feed-modal-target="feedLayout" data-turbo-frame="<%= r %>">
         <img src="<%= r["image_url"]%>" class="img-card" width="100%" id=logo alt="Logo image" />
         <div class="bookmark-icons" data-feed-modal-target="feedActions">
           <%= link_to save_read_later_rss_feeds_path(id: r["rss_feed_id"], article_id: r["id"]), data: { turbo_stream: 'top' } do %>

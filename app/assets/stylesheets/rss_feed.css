@@ -260,8 +260,6 @@
 /* Style for card view feeds */
 .card-view .feed-layout {
   position: relative;
-  width: 30%;
-  margin-right: 30px;
   display: block;
   margin-bottom: 20px;
   cursor: pointer;
@@ -368,7 +366,7 @@
 .feed-actions{
   display: flex;
   justify-content: flex-end;
-  width: 18rem;
+  padding-right: 18px;
 }
 
 .feed-actions i {
@@ -411,6 +409,9 @@
 .feed-title {
   font-size: 35px;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #feedDescription {
