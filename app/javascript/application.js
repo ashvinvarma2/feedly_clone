@@ -51,45 +51,13 @@ document.addEventListener('mouseover', (event) => {
   }
 });
 
-// Here we're handling the popovers
-document.addEventListener('mouseover', (event) => {
-  const target = event.target;
-
-  if (target.dataset.bsToggle === 'popover') {
-    const popover = document.querySelector('.popover'); // Assuming the popover element has a class 'popover'
-    if (!popover) {
-      new bootstrap.Popover(target, {
-        html: true
-      });
-    }
-  };
-
-  if (target.classList.contains('add-button')) {
-    target.addEventListener('click', function() {
-      var popover = document.querySelector('.custom-popover');
-      if (popover) {
-        popover.remove();
-      }
-    });
-  }
-});
-
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl, {html: true}))
 
 // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-var menuContainer = document.querySelector('.navbar-container2');
-var menuBtn = document.querySelector('.navbar-header .logo .logoImg svg');
 var body = document.querySelector('body');
-var darkModeText = document.querySelector('.dark-light-mode .text');
-
-menuBtn.addEventListener('click', menuToggle);
-
-function menuToggle(){
-  menuContainer.classList.toggle('active');
-}
 
 // Loaders
 document.addEventListener("turbo:before-fetch-request", () => {
@@ -100,9 +68,7 @@ document.addEventListener("turbo:before-fetch-response", () => {
   document.getElementById("loader").style.display = "none";
 });
 
-if (JSON.parse(localStorage.getItem("darkModeoOn")) == true) {
-  body.classList.toggle('active');
-}
+
 
 // // Get all anchor tags on the page
 // const anchorTags = document.querySelectorAll('a');

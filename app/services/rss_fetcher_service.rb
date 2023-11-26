@@ -9,7 +9,7 @@ class RssFetcherService
     xml_content = HTTParty.get(@rss_feed_url).body
     doc = Nokogiri::XML(xml_content)
 
-    page_title = doc.at_xpath("//channel/image/title").text
+    page_title = doc.at_xpath("//channel/title").text
     website_url = doc.at_xpath("//channel/link").text
     favicon_url = fetch_favicon(website_url)
     items = doc.xpath("//item")
@@ -40,13 +40,13 @@ class RssFetcherService
   def fetch_rss_details
     xml_content = HTTParty.get(@rss_feed_url).body
     doc = Nokogiri::XML(xml_content)
-    website_url = doc.at_xpath('//image/link').text
+    website_url = doc.at_xpath("//channel/link").text
 
     feed_details  = {}
 
-    feed_details[:title] = doc.at_xpath("//channel/image/title").text
+    feed_details[:title] = doc.at_xpath("//channel/title").text
     feed_details[:rss_link] = @rss_feed_url
-    feed_details[:favicon_url] =  fetch_favicon(website_url)
+    feed_details[:favicon_url] = fetch_favicon(website_url)
 
     return feed_details
   end

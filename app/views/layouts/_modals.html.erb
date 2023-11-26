@@ -1,0 +1,140 @@
+<!-- Modal -->
+<div data-controller="category_form">
+  <div class="modal right" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-category_form-target="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="category_form">
+            <h2>
+              Create New Folder
+              <div>
+                Group your feeds into a private folder by topic, type, or project
+              </div>
+            </h2>
+            <%= form_with model: Category.new, method: :post, data: { action: "turbo:submit->category_form#handleSuccess" } do |form| %>
+              <%= form.hidden_field :user_id, value: current_user.id %>
+              <div style="margin-bottom: 1.5rem;">
+                <div>
+                  <label class="category-title">
+                    Title
+                  </label>
+                </div>
+                <div class="category-input" data-category_form-target="input">
+                  <%= form.text_field :name, placeholder: "Topic, type, project, etc.", class: "category-text-field", autocomplete: 'off' %>
+                </div>
+              </div>
+              <div>
+                <%= form.submit 'SAVE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+                <button type="button" class="action-btn cancel-category">
+                  <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    CANCEL
+                  </span>
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal right" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col-md-2">
+          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
+        <div class="col-md-4 modal-actions">
+          <span id="readLater"></span>
+          <a href="#"><i class="fa-solid fa-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copy link"></i></a>
+        </div>
+        <div class="col-md-4 modal-actions">
+          <a href="#"><i class="fa-regular fa-envelope" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share via email"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share to LinkedIn"></i></a>
+          <a href="#"><i class="fa-brands fa-mastodon"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share to mostodon"></i></a>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="category_form">
+          <h2>
+            <span id="feedTitle"></span>
+            <div>
+              <span id="feedPageTitle"></span> / <span id="feedTime"></span>
+            </div>
+          </h2>
+          <span id="feedImage"></span>
+          <div style="margin-top: 20px">
+            <span id="feedDescription"></span>
+          </div>
+          <div>
+            <span id="feedVisitURL"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-controller="category_form">
+  <div class="modal right" id="boardModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true" data-category_form-target="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="category_form">
+            <h2>
+              Create New Board
+              <div>
+                Save the most important articles you read around your projects, clients, or interests
+              </div>
+            </h2>
+            <%= form_with model: Board.new, method: :post, data: { action: "turbo:submit->category_form#handleSuccess" } do |form| %>
+              <div style="margin-bottom: 1.5rem;">
+                <div>
+                  <label class="category-title">
+                    Title
+                  </label>
+                </div>
+                <div class="category-input" data-category_form-target="input">
+                  <%= form.text_field :title, placeholder: "Enter Board's Title", class: "category-text-field", autocomplete: 'off' %>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 1.5rem;">
+                <div>
+                  <label class="category-title">
+                    Description
+                  </label>
+                </div>
+                <div class="category-input" data-category_form-target="input">
+                  <%= form.text_field :description, placeholder: "Enter Borad's Decription", class: "category-text-field", autocomplete: 'off' %>
+                </div>
+              </div>
+              <div>
+                <%= form.submit 'CREATE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+                <button type="button" class="action-btn cancel-category">
+                  <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    CANCEL
+                  </span>
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

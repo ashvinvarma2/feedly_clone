@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "dashboard_index" do %>
+  <%= render partial: "rss_feeds/feeds", locals: { title: @rss_feed.title, result: @result } %>
+<% end %>

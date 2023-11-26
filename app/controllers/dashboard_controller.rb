@@ -3,7 +3,6 @@ class DashboardController < ApplicationController
 
   def index
     @category = Category.new
-    set_dashboard
 
     sql_query =
       "SELECT
@@ -43,10 +42,4 @@ class DashboardController < ApplicationController
   end
 
   private
-
-  def set_dashboard
-    @categories = current_user.categories
-    @favorites = current_user.favorites
-    @boards = current_user.boards
-  end
 end

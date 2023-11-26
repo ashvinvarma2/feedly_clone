@@ -249,3 +249,11 @@
   border-radius: 0px !important;
 }
 
+.category_dropdown_form{
+  padding: 10px;
+}
+
+.save-category:disabled {
+  background-color: #4c4c4c !important;
+  color: #bfbfbf
+}

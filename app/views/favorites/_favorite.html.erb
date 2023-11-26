@@ -1,36 +1,7 @@
 
 <%= turbo_frame_tag favorite do %>
   <% if favorite.favoritable_type == "Category" %>
-    <div data-controller="dropdown">
-      <% category = favorite.favoritable %>
-      <div class="nav-list-item">
-        <span class="dropdown-icon" data-action="click->dropdown#toggle"><i class="fa-solid fa-chevron-right" data-dropdown-target="icon"></i></span>
-        <span class="nav-list-item-text nav-list-item-text-bold">
-          <%= link_to category.name, category_path(category), data: { turbo_stream: 'top' }, style: "text-decoration: none; color: var(--text-clr);" %>
-        </span>
-      </div>
-
-      <div class="dropdown-content" data-dropdown-target="content">
-        <% category.rss_feeds.each do |feed| %>
-          <div class="nav-list-item">
-            <span class="nav-list-item-text">
-              <%= link_to rss_feed_path(feed), data: { turbo_stream: 'top' } do %>
-                <span>
-                  <% if feed.favicon_url %>
-                    <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
-                  <% else %>
-                    <img src="feedly_favicon.png" height="20" width="20" id=logo alt="Logo image" />
-                  <% end %>
-                </span>
-                <span style="margin-left: 10px">
-                  <%= feed.title  %>
-                </span>
-              <% end %>
-            </span>
-          </div>
-        <% end %>
-      </div>
-    </div>
+    <%= render partial: "categories/category", locals: { category: favorite.favoritable } %>
   <% end %>
   <% if favorite.favoritable_type == "Board" %>
     <%= render partial: "boards/board", locals: { board: favorite.favoritable } %>
@@ -41,13 +12,15 @@
     <div class="favorite-rss-feed nav-list-item">
       <span class="nav-list-item-text">
         <%= link_to rss_feed_path(feed), data: { turbo_stream: 'top' } do %>
-          <span>
-            <% if feed.favicon_url %>
+          <% if feed.favicon_url %>
+            <span>
               <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
-            <% else %>
-              <img src="feedly-logo-icon.png" height="15" width="15" id=logo alt="Logo image" />
-            <% end %>
-          </span>
+            </span>
+          <% else %>
+            <span style="margin-left: -3px; margin-right: -4px; color: var(--border-clr)">
+              <%= inline_svg_tag "feedly-logo-transparent.svg" %>
+            </span>
+          <% end %>
           <span style="margin-left: 10px">
             <%= feed.title  %>
           </span>

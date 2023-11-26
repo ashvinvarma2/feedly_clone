@@ -45,10 +45,13 @@ module ApplicationHelper
   end
 
   def list_themes
+    u_setting = current_user.user_settings
+                       .joins(:setting)
+                       .where(settings: { title: "Default Presentation" }).first
     "<ul data-controller='theme-switcher'>
       <li id='lightModeBtn'>
         <div class='list-item'>
-          <span data-action='click->theme-switcher#switchTheme' data-view='light-theme'>
+          <span data-action='click->theme-switcher#switchTheme' data-view='light-theme' data-user-setting-path='#{user_setting_path(u_setting, option_id: u_setting.setting.options.first.id)}'>
             <i class='fa-regular fa-circle'></i>
             Light
           </span>

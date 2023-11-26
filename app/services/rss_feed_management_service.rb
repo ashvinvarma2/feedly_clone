@@ -18,7 +18,7 @@ class RssFeedManagementService
   private
 
   def assign_to_category(rss_feed)
-    @category.rss_feeds << rss_feed
+    @category.rss_feeds << rss_feed unless @category.rss_feeds.include?(rss_feed)
   end
 
   def create_new_rss_feed

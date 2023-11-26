@@ -1,5 +1,5 @@
 class RssFeedsController < ApplicationController
-  before_action :fetch_rss_feed, only: %i[show mark_read_unread]
+  before_action :set_rss_feed, only: %i[show mark_read_unread]
 
   def index; end
 
@@ -38,17 +38,16 @@ class RssFeedsController < ApplicationController
 
   def show
     board_ids = current_user.board_ids.any? ? current_user.board_ids : [0]
-    result = @rss_feed.articles
-                      .select("articles.*,
+    @result = @rss_feed.articles
+                       .select("articles.*,
                                bool_or(user_articles.marked_as_read) as marked_as_read,
                                bool_or(user_articles.read_later) as read_later,
                                bool_or(user_articles.marked_as_read_and_hide) as marked_as_read_and_hide,
                                array_agg(board_articles.board_id) as b_ids")
-                      .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
-                      .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
-                      .group("articles.id")
-                      .order("articles.pub_date DESC")
-    render_feeds(@rss_feed.title, result)
+                       .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
+                       .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
+                       .group("articles.id")
+                       .order("articles.pub_date DESC")
   end
 
   def mark_read_unread
@@ -102,17 +101,20 @@ class RssFeedsController < ApplicationController
 
   def show_read_later
     board_ids = current_user.board_ids.any? ? current_user.board_ids : [0]
-    result = Article.select("articles.*,
+    @result = Article.select("articles.*,
                              bool_or(user_articles.marked_as_read) as marked_as_read,
                              bool_or(user_articles.read_later) as read_later,
                              array_agg(board_articles.board_id) as b_ids")
-                    .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
-                    .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
-                    .where("user_articles.read_later = true")
-                    .group("articles.id")
-                    .order("articles.pub_date DESC")
+                     .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
+                     .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
+                     .where("user_articles.read_later = true")
+                     .group("articles.id")
+                     .order("articles.pub_date DESC")
 
-    render_feeds("Read Later", result)
+    respond_to do |format|
+      format.turbo_stream
+      format.html
+    end
   end
 
   private
@@ -121,7 +123,7 @@ class RssFeedsController < ApplicationController
     params.require(:rss_feed).permit(:link, :marked_as_read, :read_later)
   end
 
-  def fetch_rss_feed
+  def set_rss_feed
     @rss_feed = RssFeed.find(params[:id])
   end
 end

@@ -29,7 +29,7 @@
   <div id="loader" class="spinner-border text-success" style="display: none;" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <body>
+  <body data-controller="hello" data-hello-target="body">
     <script>
       toastr.options = {
         "closeButton": false,
@@ -56,7 +56,10 @@
       <%= render "layouts/nav_bar" %>
     <% end %>
     <div class="main-content">
-      <%= yield %>
+      <%= render "layouts/modals"%>
+      <div class="container" style="padding-left: 12%; padding-right: 12%; margin-top: 2rem;">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

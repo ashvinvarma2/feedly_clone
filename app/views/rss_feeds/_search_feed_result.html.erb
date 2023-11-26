@@ -1,37 +1,112 @@
 <div class="rss-feed-results">
-  <div class="column1">
-    <img src=<%= result[:favicon_url] %> class="feed_logo" />
-  </div>
+  <% if result[:favicon_url]%>
+    <div class="column1">
+      <img src=<%= result[:favicon_url] %> class="feed_logo" />
+    </div>
+  <% else %>
+    <div class="column1">
+      <div class="missing-fevicon">
+        <%= result[:title][0].capitalize %>
+      </div>
+    </div>
+  <% end %>
   <div class="column2">
-    <div style="font-weight: 700;"><%= result[:title] %></div>
+    <div class="search-result-description"><%= result[:title] %></div>
     <div style="color: #a5a5a5;margin-top: 15px;margin-left: -2px">RSS Feed</div>
   </div>
   <div class="column3">
-    <% category_content = "<ul>" %>
-    <% current_user.categories.all.each do |category| %>
-      <% category_content += "<li>
-                                <div class='category-name'>
-                                  <i class='fa-regular fa-folder folder-icon'></i>
-                                  <span>#{category.name}</span>
-                                </div>
-                                <div class='add-category'>
-                                  <span><a class='add-button' data-turbo-stream='true' href='/rss_feeds/add_to_category?rss_link=#{result[:rss_link]}&category_id=#{category.id}'>
-                                    Add
-                                    <i class='fa-solid fa-plus'></i>
-                                  </a></span>
-                                </div>
-                              </li>" %>
-    <% end %>
-    <% category_content += "</ul>" %>
-    <button type="button" id="follow-button" class="follow-button"
-      tabindex="0"
-      data-bs-toggle="popover"
-      data-bs-trigger="focus"
-      data-bs-placement="bottom"
-      data-bs-custom-class="custom-popover"
-      data-bs-html="true"
-      data-bs-content="<%= category_content %>">
-      FOLLOW<i class="fa-solid fa-plus"></i>
-    </button>
+    <div class="dropdown">
+      <button class="follow-button" type="button" id="follow-button" data-bs-toggle="dropdown" aria-expanded="false" data-rss-link=<%= result[:rss_link] %>>
+        FOLLOW<i class="fa-solid fa-plus"></i>
+      </button>
+
+      <ul class="dropdown-menu custom-dropdown" aria-labelledby="follow-button" >
+        <div id="category-list">
+          <%= turbo_frame_tag "dropdown_categories" do %>
+            <%= render partial: "categories/dropdown_categories" %>
+          <% end %>
+          <li id='new-category-button' onclick='toggleCategoryDropdown()' >
+            <div class='category-name' style="color: var(--button-clr); font-weight: 600;">
+              <%= inline_svg_tag "plus.svg"%>
+              <span>NEW FOLDER</span>
+            </div>
+          </li>
+        </div>
+        <div class="category_dropdown_form" id="new-category-dropdown" style="display: none;">
+          <%= form_with model: Category.new, method: :post do |form| %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+            <div style="margin-bottom: 1.5rem;">
+              <div>
+                <label class="category-title">
+                  Folder Name
+                </label>
+              </div>
+              <div class="category-input">
+                <%= form.text_field :name, placeholder: "e.g. Sports", class: "category-dropdown category-text-field", autocomplete: 'off', autofocus: true %>
+              </div>
+            </div>
+            <div>
+              <%= form.submit 'SAVE', class: "action-btn category-dropdown save-category", onclick: 'toggleCategoryDropdown()', disabled: true %>
+              <button type="button" onclick='toggleCategoryDropdown()' class="action-btn cancel-category">
+                <span class="close-button" type="button">
+                  CANCEL
+                </span>
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </ul>
+    </div>
   </div>
 </div>
+
+<script>
+
+  document.querySelector(".dropdown-menu.custom-dropdown").addEventListener('click', function(event) {
+    if (event.target.classList.contains("allow-propagation")) {
+      // Allow event propagation
+      return;
+    }
+
+    event.stopPropagation();
+  });
+
+  var nameInput = document.querySelector('.category-dropdown.category-text-field');
+  var saveButton = document.querySelector('.category-dropdown.save-category')
+  nameInput.addEventListener('input', function() {
+    saveButton.disabled = nameInput.value.trim() === '';
+  });
+
+  function toggleCategoryDropdown() {
+    // Get references to the two divs
+    var categoryList = document.getElementById('category-list');
+    var newCategoryDropdown = document.getElementById('new-category-dropdown');
+
+    // Toggle the display property of the divs
+    if (categoryList.style.display !== 'none') {
+      categoryList.style.display = 'none';
+      newCategoryDropdown.style.display = 'block';
+      nameInput.value = '';
+    } else {
+      categoryList.style.display = 'block';
+      newCategoryDropdown.style.display = 'none';
+    }
+
+    event.stopPropagation();
+
+    document.addEventListener('click', resetCategoryDropdown);
+  }
+
+  function resetCategoryDropdown() {
+    // Get references to the two divs
+    var categoryList = document.getElementById('category-list');
+    var newCategoryDropdown = document.getElementById('new-category-dropdown');
+
+    // Reset the display property of the divs to their default values
+    categoryList.style.display = 'block';
+    newCategoryDropdown.style.display = 'none';
+
+    // Remove the event listener to avoid unwanted behavior
+    document.removeEventListener('click', resetCategoryDropdown);
+  }
+</script>

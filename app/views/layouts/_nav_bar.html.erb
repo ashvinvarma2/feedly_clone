@@ -5,13 +5,13 @@
 
     <div class="logo">
       <div class="logoImg">
-        <%= link_to dashboard_index_path, data: { turbo_stream: 'top' } do %>
-          <img src="logo1.png" width="35px" height="30px" id=logo alt="Logo image" />
+        <%= link_to dashboard_index_path do %>
+          <%= inline_svg_tag "feedly-logo.svg" %>
         <% end %>
       </div>
     </div>
     <div class="logo">
-      <span class="logoImg">
+      <span class="logoImg slider">
         <%= inline_svg_tag "slider.svg" %>
       </span>
     </div>
@@ -24,7 +24,7 @@
 
     <ul class="navbar-links">
       <li>
-        <%= link_to new_rss_feed_path, data: { turbo_stream: 'true' } do %>
+        <%= link_to new_rss_feed_path do %>
           <span class="nav-icon" data-label="Topic">
             <%= inline_svg_tag "follow-page.svg" %>
           </span>
@@ -71,7 +71,7 @@
       </li>
 
       <li>
-        <%= link_to user_settings_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+          <%= link_to user_settings_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
           <span class="nav-icon" data-label="Settings">
             <i class="fa-solid fa-gear"></i>
           </span>
@@ -105,16 +105,18 @@
 <div class="navbar-container2 <%= show_sidebar? %>">
   <div class="m-t-2">
 
-    <%= link_to dashboard_index_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+    <%= link_to dashboard_index_path, style: "text-decoration: none; display: contents;" do %>
       <div class="nav-list-item">
-        <span class="nav-icon"><img src="logo4.png" width="20px" height="20px" id=logo alt="Logo image" /></span>
+        <span class="nav-icon" style="display: contents !important; margin-left: 14px; margin-right: 11px;">
+          <%= inline_svg_tag "feedly-logo-transparent.svg" %>
+        </span>
         <span class="nav-list-item-text nav-list-item-text-bold">
           Today
         </span>
       </div>
     <% end %>
 
-    <%= link_to show_read_later_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+    <%= link_to show_read_later_rss_feeds_path, style: "text-decoration: none; display: contents;" do %>
       <div class="nav-list-item">
         <span class="nav-icon"><i class="fa-regular fa-bookmark"></i></span>
         <span class="nav-list-item-text nav-list-item-text-bold">

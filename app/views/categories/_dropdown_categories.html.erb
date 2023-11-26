@@ -1,0 +1,19 @@
+<% current_user.categories.includes(:rss_feeds).each do |category| %>
+  <%= turbo_frame_tag category do %>
+    <li>
+      <div class='category-name'>
+        <i class='fa-regular fa-folder folder-icon'></i>
+        <span><%= category.name %></span>
+      </div>
+      <div class='add-category'>
+        <span>
+          <% category.rss_feeds.map(&:link).include?(params) %>
+          <%= link_to add_to_category_rss_feeds_path(category_id: category.id), data: { turbo_stream: 'top' }, class: "add-button allow-propagation" do %>
+            Add
+            <i class='fa-solid fa-plus'></i>
+          <% end %>
+        </span>
+      </div>
+    </li>
+  <% end %>
+<% end %>

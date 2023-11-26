@@ -70,7 +70,6 @@
   transform: translateX(0);
 }
 
-
 .main-content {
   position: absolute;
   top: 0;
@@ -169,4 +168,56 @@
 
 .toast-progress {
   background-color: var(--text-clr) !important;
+}
+
+.no-decoration {
+  text-decoration: none !important;
+  color: var(--txt-clr) !important;
+}
+
+.custom-dropdown {
+  background-color: var(--body-clr);;
+  box-shadow: 0 2px 8px rgba(255,255,255,.2);
+  border-radius: 1px solid var(--line-clr)!important;
+  border-radius: 0px !important;
+  max-width: 500px !important;
+  padding: 0 !important;
+  width: 250px;
+  --bs-popover-max-width: 200px;
+  --bs-popover-header-bg: var(--bd-violet-bg);
+  --bs-popover-header-color: var(--bs-white);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+  --bs-popover-bg: var(--body-clr);
+}
+
+.custom-dropdown li {
+  margin-left: 0;
+  padding-left: 0;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  align-items: center;
+  color: var(--text-clr);
+  padding: 3px;
+  align-items: center;
+  display: flex;
+  border-bottom: 1px solid var(--line-clr);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.custom-dropdown li .category-name{
+  flex: 60%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-dropdown li:hover{
+  background-color: var(--navbar-hover-clr);
+}
+
+.custom-dropdown li .add-category{
+  flex: 40%;
 }

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["feedLayout", "feedActions", "modal"];
+  static targets = ["feedLayout", "feedActions"];
 
   connect() {
     this.feedLayoutTarget.addEventListener("mouseenter", this.showActions.bind(this));

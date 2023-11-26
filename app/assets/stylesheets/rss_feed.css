@@ -311,7 +311,7 @@
 }
 
 .bookmark-icons a{
-  color: var(--text-clr);
+  color: #e6e6e6;
   text-decoration: none;
   padding: 0px 3px 0px 4px;
 }
@@ -325,7 +325,7 @@
 }
 
 .feed-layout:hover .img-card {
-  opacity: 0.3;
+  filter: brightness(40%);
 }
 
 .magazine-view .feed-layout {
@@ -452,4 +452,30 @@
   text-decoration: none;
 	color: var(--text-clr);
 	margin-left: 17px;
+}
+
+.missing-fevicon {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: "DM Sans", "Open Sans", Arial, sans-serif;
+  font-size: 1.75rem;
+  line-height: 1;
+  border-radius: 0px;
+  user-select: none;
+  color: rgb(255, 255, 255);
+  background-color: rgb(189, 189, 189);
+  width: 63px !important;
+  height: 63px;
+}
+
+.search-result-description{
+  font-weight: 700;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  display: -webkit-box;
 }

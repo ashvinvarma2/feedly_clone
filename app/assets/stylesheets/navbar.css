@@ -89,8 +89,6 @@ ul.navbar-links li a .nav-icon svg {
 	color: var(--border-clr);
 }
 
-
-
 .navbar-container .navbar-footer {
 	position: absolute;
 	left: 0;
@@ -236,6 +234,11 @@ ul.navbar-links li a .nav-icon svg {
 	align-items: center;
 	color: var(--border-clr);
 	font-size: 18px;
+}
+
+.nav-list-item .nav-icon svg.feedly-icon-transparent{
+	margin-left: 13px;
+  margin-right: 11px;
 }
 
 .nav-heading {
