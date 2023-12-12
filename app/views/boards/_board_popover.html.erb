@@ -1,48 +1,45 @@
-<%= turbo_frame_tag r do %>
-  <% if current_user.boards.any? %>
-    <% board_content = "<ul>" %>
-
-    <% current_user.boards.each do |board| %>
-      <% board_content += "<li>
-                            <div class='category-name'>
-                              <i class='fa-regular fa-star'></i>
-                              <span>#{board.title}</span>
-                            </div>" %>
-      <% if !r["b_ids"]&.include?(board.id) %>
-        <% board_content += "<div class='add-category'>
-                              <span><a class='add-button' data-turbo-stream='true' href='/boards/save_feed_to_board?board_id=#{board.id}&article_id=#{r["id"]}'>
-                                Add
-                                <i class='fa-solid fa-plus'></i>
-                              </a></span>
-                            </div>" %>
-      <% else %>
-        <% board_content += "<div class='add-category'>
-                              <span><a class='remove-button' data-turbo-stream='true' href='/boards/remove_feed_from_board?board_id=#{board.id}&article_id=#{r["id"]}'>
-                                Remove
-                                <i class='fa-solid fa-xmark'></i>
-                              </a></span>
-                            </div>" %>
-      <% end %>
-      <% board_content += "</li>" %>
+<% if current_user.boards.any? %>
+  <% board_content = "<ul>" %>
+  <% current_user.boards.each do |board| %>
+    <% board_content += "<li>
+                          <div class='category-name'>
+                            <i class='fa-regular fa-star'></i>
+                            <span>#{board.title}</span>
+                          </div>" %>
+    <% if !r["b_ids"]&.include?(board.id) %>
+      <% board_content += "<div class='add-category'>
+                            <span><a class='add-button' data-turbo-stream='true' href='/boards/save_feed_to_board?board_id=#{board.id}&article_id=#{r["id"]}'>
+                              Add
+                              <i class='fa-solid fa-plus'></i>
+                            </a></span>
+                          </div>" %>
+    <% else %>
+      <% board_content += "<div class='add-category'>
+                            <span><a class='remove-button' data-turbo-stream='true' href='/boards/remove_feed_from_board?board_id=#{board.id}&article_id=#{r["id"]}'>
+                              Remove
+                              <i class='fa-solid fa-xmark'></i>
+                            </a></span>
+                          </div>" %>
     <% end %>
-
-    <% board_content += "</ul>" %>
-    <a id="follow-button" class=""
-      tabindex="0"
-      data-bs-toggle="popover"
-      data-bs-placement="bottom"
-      data-bs-trigger="focus"
-      data-bs-custom-class="custom-popover board-popover"
-      data-bs-html="true"
-      data-bs-content="<%= board_content %>">
-      <%= inline_svg_tag r["b_ids"]&.any? ? "star-filled.svg" : "star.svg", class: 'board-icon'%>
-    </a>
-  <% else %>
-    <a id="follow-button"
-       data-bs-custom-class="custom-popover board-popover"
-       data-bs-toggle="modal"
-       data-bs-target="#boardModal">
-      <%= inline_svg_tag "star.svg", class: 'board-icon'%>
-    </a>
+    <% board_content += "</li>" %>
   <% end %>
+
+  <% board_content += "</ul>" %>
+  <a id="follow-button" class=""
+    tabindex="0"
+    data-bs-toggle="popover"
+    data-bs-placement="bottom"
+    data-bs-trigger="focus"
+    data-bs-custom-class="custom-popover board-popover"
+    data-bs-html="true"
+    data-bs-content="<%= board_content %>">
+    <%= inline_svg_tag r["b_ids"]&.any? ? "star-filled.svg" : "star.svg", class: 'board-icon'%>
+  </a>
+<% else %>
+  <a id="follow-button"
+      data-bs-custom-class="custom-popover board-popover"
+      data-bs-toggle="modal"
+      data-bs-target="#boardModal">
+    <%= inline_svg_tag "star.svg", class: 'board-icon'%>
+  </a>
 <% end %>

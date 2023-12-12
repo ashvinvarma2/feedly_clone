@@ -74,19 +74,20 @@ class RssFeedsController < ApplicationController
     article = Article.find(params[:article_id])
     user_article = UserArticle.find_or_initialize_by(user: current_user, article: article)
     user_article.read_later = !user_article.read_later
-
+    flash_message = user_article.read_later ? "Saved to Read Later" : "Removed from Read Later"
+    flash[:toastr] = { "success" => flash_message }
     if user_article.save
       if user_article.saved_change_to_read_later?(from: true, to: false) && !user_article.marked_as_read
         user_article.destroy
       end
     end
 
-    render turbo_stream: []
+    render turbo_stream: turbo_stream.prepend("flash", partial: "layouts/flash")
   end
 
   def recently_read_feeds
     board_ids = current_user.board_ids.any? ? current_user.board_ids : [0]
-    result = Article.select("articles.*,
+    @result = Article.select("articles.*,
                              bool_or(user_articles.marked_as_read) as marked_as_read,
                              bool_or(user_articles.read_later) as read_later,
                              array_agg(board_articles.board_id) as b_ids")
@@ -96,7 +97,10 @@ class RssFeedsController < ApplicationController
                     .group("articles.id")
                     .order("articles.pub_date DESC")
 
-    render_feeds("Recently Read", result)
+    respond_to do |format|
+      format.turbo_stream
+      format.html
+    end
   end
 
   def show_read_later
@@ -114,6 +118,14 @@ class RssFeedsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html
+    end
+  end
+
+  def show_article
+    article = Article.find(params[:id])
+    @article = article.setup_article_for_feed(current_user)
+    respond_to do |format|
+      format.js { render content_type: "text/javascript" }
     end
   end
 

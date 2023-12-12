@@ -95,6 +95,7 @@ ul.navbar-links li a .nav-icon svg {
 	bottom: 0;
 	width: 100%;
 	padding: 0px 10px;
+	margin-bottom: 10px;
 	white-space: nowrap;
 }
 
@@ -319,4 +320,3 @@ ul.navbar-links li a .nav-icon svg {
 .general-popover.theme-popover li i.fa-circle {
 	color: var(--border-clr);
 }
-

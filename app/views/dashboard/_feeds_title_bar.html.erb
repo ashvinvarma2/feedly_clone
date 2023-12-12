@@ -30,7 +30,7 @@
 <% marked_favorite = @favoritable&.favorites&.where(user_id: current_user.id)&.any? %>
 
 <div class="row" style="align-items: center;">
-  <div class="col-6 feed-title" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= title.capitalize %>">
+  <div class="col-6 feed-title" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= title.capitalize %>">
     <%= title.capitalize %>
   </div>
   <div class="col-6 feed-actions" data-controller="feed-actions">

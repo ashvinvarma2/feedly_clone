@@ -20,7 +20,7 @@
         FOLLOW<i class="fa-solid fa-plus"></i>
       </button>
 
-      <ul class="dropdown-menu custom-dropdown" aria-labelledby="follow-button" >
+      <ul class="dropdown-menu custom-dropdown category-list-container" aria-labelledby="follow-button" >
         <div id="category-list">
           <%= turbo_frame_tag "dropdown_categories" do %>
             <%= render partial: "categories/dropdown_categories" %>
@@ -34,7 +34,7 @@
         </div>
         <div class="category_dropdown_form" id="new-category-dropdown" style="display: none;">
           <%= form_with model: Category.new, method: :post do |form| %>
-            <%= form.hidden_field :user_id, value: current_user.id %>
+            <%= form.hidden_field :user_id, value: current_user&.id %>
             <div style="margin-bottom: 1.5rem;">
               <div>
                 <label class="category-title">
@@ -62,7 +62,7 @@
 
 <script>
 
-  document.querySelector(".dropdown-menu.custom-dropdown").addEventListener('click', function(event) {
+  document.querySelector(".dropdown-menu.custom-dropdown.category-list-container").addEventListener('click', function(event) {
     if (event.target.classList.contains("allow-propagation")) {
       // Allow event propagation
       return;

@@ -8,23 +8,20 @@ export default class extends Controller {
   }
 
   showModal(event) {
-    const feedData = JSON.parse(event.currentTarget.dataset.feedData);
+    var articleId = this.feedLayoutTarget.dataset.articleId;
 
-    document.getElementById('readLater').innerHTML =
-      `<a data-turbo-stream="top" href='/rss_feeds/save_read_later?article_id=${feedData.id}&amp;id=${feedData.rss_feed_id}'>
-         <i class="${feedData.read_later ? 'fa-solid' : 'fa-regular'} fa-bookmark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Read Later" data-action="click->feed-modal#saveReadLater"></i>
-       </a>`
-    document.getElementById('feedTitle').innerHTML = feedData.title;
-    document.getElementById('feedPageTitle').innerHTML = feedData.page_title;
-    document.getElementById('feedTime').innerHTML = feedData.pub_date;
-
-    const feedImage = document.getElementById('feedImage');
-    feedImage.innerHTML = `<img src="${feedData.image_url}" width="100%" height="400px" alt="Feed Image" />`;
-
-    document.getElementById('feedDescription').innerHTML = feedData.description;
-
-    const feedVisitURL = document.getElementById('feedVisitURL');
-    feedVisitURL.innerHTML = `<a class='visit-button' target="_blank" href="${feedData.article_link}">VISIT WEBSITE</a>`;
+    jQuery.ajax({
+      type: "GET",
+      url: `/rss_feeds/show_article/${articleId}`,
+      data: { },
+      dataType: "script",
+      success(data) {
+        return false;
+      },
+      error(data) {
+        return false;
+      }
+    })
   }
 
   markRead(event){
@@ -43,17 +40,6 @@ export default class extends Controller {
     document.querySelector('.tooltip').remove()
     this.feedLayoutTarget.remove();
   }
-
-  saveReadLater(event){
-    if (event.currentTarget.classList.contains('fa-regular')) {
-      event.currentTarget.classList.remove('fa-regular');
-      event.currentTarget.classList.add('fa-solid');
-    } else {
-      event.currentTarget.classList.add('fa-regular');
-      event.currentTarget.classList.remove('fa-solid');
-    }
-  }
-
 
   showActions(event){
     this.feedActionsTarget.style.display = "flex";

@@ -19,6 +19,9 @@ application.register("feed-actions", FeedActionsController)
 import FeedModalController from "./feed_modal_controller"
 application.register("feed-modal", FeedModalController)
 
+import GeneralController from "./general_controller"
+application.register("general", GeneralController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

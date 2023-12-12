@@ -1,9 +1,5 @@
 class UserSettingsController < ApplicationController
   def index
-    render turbo_stream: turbo_stream.update(
-      "dashboard_index",
-      partial: "user_settings/settings"
-    )
   end
 
   def update

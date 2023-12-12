@@ -221,3 +221,54 @@
 .custom-dropdown li .add-category{
   flex: 40%;
 }
+
+#new-category-button {
+  cursor: pointer;
+}
+
+label .mandatory {
+  color: red;
+  margin-left: 2px;
+  font-size: 15x;
+}
+
+.profile-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: "DM Sans", "Open Sans", Arial, sans-serif;
+  font-size: 1.15rem;
+  border-radius: 40px;
+  user-select: none;
+  color: rgb(255, 255, 255);
+  background-color: #c2175b;
+  width: 40px !important;
+  height: 40px;
+}
+
+.profile-dropdown{
+  position: absolute;
+  inset: auto auto 0px 0px;
+  margin: 0px;
+  transform: translate3d(60px, 3px, 15px) !important;
+}
+
+.profile-dropdown li.name {
+  height: 70px;
+}
+
+.profile-dropdown li.name .col-9 span {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile-dropdown li.name .col-9 p {
+  margin-bottom: 0rem;
+  margin-top: -20px;
+  color: var(--border-clr);;
+}
+
+.profile-dropdown li .category-name {
+  margin-left: 19px;
+}

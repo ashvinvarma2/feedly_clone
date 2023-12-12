@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "rss_feeds/recently_read_feeds", to: "rss_feeds#recently_read_feeds", as: :recently_read_feeds_rss_feeds
   get "rss_feeds/show_read_later", to: "rss_feeds#show_read_later", as: :show_read_later_rss_feeds
   get "rss_feeds/save_read_later", to: "rss_feeds#save_read_later", as: :save_read_later_rss_feeds
+  get "rss_feeds/show_article/:id", to: "rss_feeds#show_article", as: :show_article_rss_feeds
   get "boards/save_feed_to_board", to: "boards#save_feed_to_board", as: :save_feed_to_board
   get "boards/remove_feed_from_board", to: "boards#remove_feed_from_board", as: :remove_feed_from_board
   get "dashboard/show_todays_feeds", to: "dashboard#show_todays_feeds", as: :show_todays_feeds

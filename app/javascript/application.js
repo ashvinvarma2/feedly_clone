@@ -4,9 +4,9 @@ import "./controllers"
 import 'popper.js'
 import * as bootstrap from "bootstrap"
 
-import jquery from 'jquery'
-window.jQuery = jquery
-window.$ = jquery
+import jquery from 'jquery';
+window.jQuery = jquery;
+window.$ = jquery;
 
 import "toastr"
 window.toastr = require("toastr")

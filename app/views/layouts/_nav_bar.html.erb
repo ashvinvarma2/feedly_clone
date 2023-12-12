@@ -55,7 +55,7 @@
       </li>
 
       <li>
-        <%= link_to show_read_later_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+        <%= link_to show_read_later_rss_feeds_path, style: "text-decoration: none; display: contents;" do %>
           <span class="nav-icon" data-label="Saved">
             <i class="fa-regular fa-bookmark"></i>
           </span>
@@ -63,7 +63,7 @@
       </li>
 
       <li>
-        <%= link_to recently_read_feeds_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+        <%= link_to recently_read_feeds_rss_feeds_path, style: "text-decoration: none; display: contents;" do %>
           <span class="nav-icon" data-label="Recently read">
             <i class="fa-regular fa-clock"></i>
           </span>
@@ -71,7 +71,7 @@
       </li>
 
       <li>
-          <%= link_to user_settings_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+          <%= link_to user_settings_path, style: "text-decoration: none; display: contents;" do %>
           <span class="nav-icon" data-label="Settings">
             <i class="fa-solid fa-gear"></i>
           </span>
@@ -83,20 +83,45 @@
 
   <!--  *****   Navbar Footer Starts   *****  -->
   <div class="navbar-footer">
-
-    <div class="logoutBtn">
-      <%= link_to destroy_user_session_path, method: :delete do %>
-        <span class="nav-icon" data-label="Logout">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </span>
-      <% end %>
-    </div>
-
-    <div class="dark-light-mode">
-      <div class="btn-container">
-        <div class="button"></div>
+    <div class="column1">
+      <div class="dropright">
+        <div class="profile-button" id="profile-button" data-bs-toggle="dropdown" aria-expanded="false">
+          <%= current_user.email[0].capitalize %>
+        </div>
+        <ul class="dropdown-menu custom-dropdown profile-dropdown" aria-labelledby="profile-button">
+          <div>
+            <li class="name row">
+              <div class="col-3">
+                <div class="profile-button">
+                  <%= current_user.email[0].capitalize %>
+                </div>
+              </div>
+              <div class="col-9">
+                <div>
+                  <span>Ashwin Varma</span>
+                  <p><%= current_user.email %></p>
+                </div>
+              </div>
+            </li>
+            <%= link_to user_settings_path, style: "text-decoration: none; display: contents;" do %>
+              <li>
+                <div class='category-name'>
+                  <i class='fa-solid fa-gear folder-icon'></i>
+                  <span><%= "Settings" %></span>
+                </div>
+              </li>
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, style: "text-decoration: none; display: contents;" do %>
+              <li>
+                <div class='category-name'>
+                  <i class='fa fa-sign-out folder-icon'></i>
+                  <span><%= "Logout" %></span>
+                </div>
+              </li>
+            <% end %>
+          </div>
+        </ul>
       </div>
-      <div class="text">Light Mode</div>
     </div>
   </div>
   <!--  *****   Navbar Footer Ends   *****  -->
@@ -172,7 +197,7 @@
   </div>
 
   <div class="nav-list-item" style="margin-top: 30px">
-    <%= link_to recently_read_feeds_rss_feeds_path, style: "text-decoration: none; display: contents;", data: { turbo_stream: 'top' } do %>
+    <%= link_to recently_read_feeds_rss_feeds_path, style: "text-decoration: none; display: contents;" do %>
       <span class="nav-icon"><i class="fa-regular fa-clock"></i></span>
       <span class="nav-list-item-text nav-list-item-text-bold">
         Recently Read

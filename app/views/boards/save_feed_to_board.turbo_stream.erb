@@ -3,4 +3,9 @@
     locals: { r: @article }
 %>
 
+<%= turbo_stream.update "article_model_view_#{@article["id"]}",
+    partial: "boards/board_popover",
+    locals: { r: @article }
+%>
+
 <%= render_turbo_stream_flash_messages %>

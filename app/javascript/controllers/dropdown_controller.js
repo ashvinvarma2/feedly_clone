@@ -9,12 +9,13 @@ export default class extends Controller {
     this.closeDropdown();
   }
 
-  toggle() {
+  toggle(event) {
     if (this.contentTarget.classList.contains("open")) {
       this.closeDropdown();
     } else {
       this.openDropdown();
     }
+    event.preventDefault();
   }
 
   openDropdown() {

@@ -22,14 +22,15 @@
                 <div>
                   <label class="category-title">
                     Title
+                    <span class="mandatory">*</span>
                   </label>
                 </div>
                 <div class="category-input" data-category_form-target="input">
-                  <%= form.text_field :name, placeholder: "Topic, type, project, etc.", class: "category-text-field", autocomplete: 'off' %>
+                  <%= form.text_field :name, id: "category_title", placeholder: "Topic, type, project, etc.", class: "category-text-field", autocomplete: 'off' %>
                 </div>
               </div>
               <div>
-                <%= form.submit 'SAVE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+                <%= form.submit 'SAVE', id: "create_category_button", class: "action-btn save-category", data: { "bs-dismiss" => "modal" }, disabled: true %>
                 <button type="button" class="action-btn cancel-category">
                   <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
                     CANCEL
@@ -44,42 +45,9 @@
   </div>
 </div>
 
-<div class="modal right" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true">
+<div class="modal right" id="feedModal" tabindex="-1" data-controller="general" aria-labelledby="feedModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <div class="col-md-2">
-          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
-            <i class="fa-solid fa-xmark"></i>
-          </span>
-        </div>
-        <div class="col-md-4 modal-actions">
-          <span id="readLater"></span>
-          <a href="#"><i class="fa-solid fa-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copy link"></i></a>
-        </div>
-        <div class="col-md-4 modal-actions">
-          <a href="#"><i class="fa-regular fa-envelope" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share via email"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share to LinkedIn"></i></a>
-          <a href="#"><i class="fa-brands fa-mastodon"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share to mostodon"></i></a>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="category_form">
-          <h2>
-            <span id="feedTitle"></span>
-            <div>
-              <span id="feedPageTitle"></span> / <span id="feedTime"></span>
-            </div>
-          </h2>
-          <span id="feedImage"></span>
-          <div style="margin-top: 20px">
-            <span id="feedDescription"></span>
-          </div>
-          <div>
-            <span id="feedVisitURL"></span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -104,9 +72,10 @@
             <%= form_with model: Board.new, method: :post, data: { action: "turbo:submit->category_form#handleSuccess" } do |form| %>
               <div style="margin-bottom: 1.5rem;">
                 <div>
-                  <label class="category-title">
-                    Title
-                  </label>
+                    <label class="category-title">
+                      Title
+                      <span class="mandatory">*</span>
+                    </label>
                 </div>
                 <div class="category-input" data-category_form-target="input">
                   <%= form.text_field :title, placeholder: "Enter Board's Title", class: "category-text-field", autocomplete: 'off' %>
@@ -124,7 +93,7 @@
                 </div>
               </div>
               <div>
-                <%= form.submit 'CREATE', class: "action-btn save-category", data: { "bs-dismiss" => "modal" } %>
+                <%= form.submit 'CREATE', class: "action-btn save-category", id: "create_board_button", data: { "bs-dismiss" => "modal" }, disabled: true %>
                 <button type="button" class="action-btn cancel-category">
                   <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
                     CANCEL
@@ -138,3 +107,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  var titleInput = document.getElementById("board_title");
+  var saveButton = document.getElementById("create_board_button");
+  titleInput.addEventListener('input', function() {
+    saveButton.disabled = titleInput.value.trim() === '';
+  });
+
+  var categoryTitleInput = document.getElementById("category_title");
+  var categorySaveButton = document.getElementById("create_category_button");
+  categoryTitleInput.addEventListener('input', function() {
+    categorySaveButton.disabled = categoryTitleInput.value.trim() === '';
+  });
+</script>

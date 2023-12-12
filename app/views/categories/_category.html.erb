@@ -1,11 +1,13 @@
 <%= turbo_frame_tag category do %>
   <div data-controller="dropdown">
-    <div class="nav-list-item">
-      <span class="dropdown-icon" data-action="click->dropdown#toggle"><i class="fa-solid fa-chevron-right" data-dropdown-target="icon"></i></span>
-      <span class="nav-list-item-text nav-list-item-text-bold">
-        <%= link_to category.name, category_path(category), data: { turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" %>
-      </span>
-    </div>
+    <%= link_to category_path(category), data: { turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" do %>
+      <div class="nav-list-item">
+        <span class="dropdown-icon" data-action="click->dropdown#toggle"><i class="fa-solid fa-chevron-right" data-dropdown-target="icon"></i></span>
+        <span class="nav-list-item-text nav-list-item-text-bold">
+          <%= category.name %>
+        </span>
+      </div>
+    <% end %>
 
     <div class="dropdown-content" data-dropdown-target="content">
       <% category.rss_feeds.each do |feed| %>

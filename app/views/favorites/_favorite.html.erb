@@ -11,7 +11,7 @@
     <% feed = favorite.favoritable %>
     <div class="favorite-rss-feed nav-list-item">
       <span class="nav-list-item-text">
-        <%= link_to rss_feed_path(feed), data: { turbo_stream: 'top' } do %>
+        <%= link_to rss_feed_path(feed), data: { turbo_frame: "dashboard_index", turbo_action: "replace" } do %>
           <% if feed.favicon_url %>
             <span>
               <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />

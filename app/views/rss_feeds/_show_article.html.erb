@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <div class="col-md-2">
+    <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </span>
+  </div>
+  <div class="col-md-4 modal-actions">
+    <%= turbo_frame_tag "boards" do %>
+      <%= turbo_frame_tag "article_model_view_#{article['id']}" do %>
+        <%= render partial: "boards/board_popover", locals: {r: article} %>
+      <% end %>
+    <% end %>
+    <a data-turbo-stream="top" href='/rss_feeds/save_read_later?article_id=<%= article["id"]%>&amp;id=<%= article["rss_feed_id"] %>'>
+      <i class="<%= article["read_later"] ? 'fa-solid' : 'fa-regular' %> fa-bookmark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Read Later" data-action="click->general#saveReadLater" data-article-id="<%= article['id'] %>"></i>
+    </a>
+    <a href="#"><i class="fa-solid fa-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copy link"></i></a>
+  </div>
+  <div class="col-md-4 modal-actions">
+    <a href="#"><i class="fa-regular fa-envelope" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share via email"></i></a>
+    <a href="#"><i class="fa-brands fa-linkedin"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share to LinkedIn"></i></a>
+    <a href="#"><i class="fa-brands fa-mastodon"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share to mostodon"></i></a>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="category_form">
+    <h2>
+      <span id="feedTitle"><%= article["title"] %></span>
+      <div>
+        <span id="feedPageTitle"><%= article["page_title"]%></span> / <span id="feedTime"><%= article["pub_date"]&.strftime("%B %d, %Y at %I:%M%p") %></span>
+      </div>
+    </h2>
+    <img src="<%= article["image_url"]%>" width="100%" height="400px" alt="Feed Image" />
+    <div style="margin-top: 20px">
+      <span id="feedDescription"><%= article["description"] %></span>
+    </div>
+    <div>
+      <a class='visit-button' target="_blank" href="<%= article['link'] %>">VISIT WEBSITE</a>
+    </div>
+  </div>
+</div>
