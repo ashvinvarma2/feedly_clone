@@ -20,5 +20,6 @@ class User < ApplicationRecord
     UserSetting.create!(user_id: id, setting_id: 3, option_id: 8)
     UserSetting.create!(user_id: id, setting_id: 4, option_id: 9)
     UserSetting.create!(user_id: id, setting_id: 5, option_id: 11)
+    UserSetting.create!(user_id: id, setting_id: 6, option_id: 14)
   end
 end
