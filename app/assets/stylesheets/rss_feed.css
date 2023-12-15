@@ -401,6 +401,12 @@
   color: #2bb24c;
 }
 
+.list-item a{
+  text-decoration: none;
+  display: contents;
+  color: var(--text-clr);
+}
+
 .list-item span i{
   padding-right: 10px;
   padding-left: 10px;

@@ -46,23 +46,25 @@ module ApplicationHelper
 
   def list_themes
     u_setting = current_user.user_settings
-                       .joins(:setting)
-                       .where(settings: { title: "Default Presentation" }).first
+                            .joins(:setting)
+                            .where(settings: { title: "Default Theme" }).first
+    options = u_setting.setting.options
+
     "<ul data-controller='theme-switcher'>
       <li id='lightModeBtn'>
         <div class='list-item'>
-          <span data-action='click->theme-switcher#switchTheme' data-view='light-theme' data-user-setting-path='#{user_setting_path(u_setting, option_id: u_setting.setting.options.first.id)}'>
+          <a data-action='click->theme-switcher#switchTheme' data-view='light-theme' data-turbo-method='put' data-turbo-stream='top' href='/user_settings/#{u_setting.id}?option_id=#{options.first.id}'>
             <i class='fa-regular fa-circle'></i>
             Light
-          </span>
+          </a>
         </div>
       </li>
       <li id='darkModeBtn'>
         <div class='list-item'>
-          <span data-action='click->theme-switcher#switchTheme' data-view='dark-theme'>
+          <a data-action='click->theme-switcher#switchTheme' data-view='dark-theme' data-turbo-method='put' data-turbo-stream='top' href='/user_settings/#{u_setting.id}?option_id=#{options.last.id}'>
             <i class='fa-regular fa-circle'></i>
             Dark
-          </span>
+          </a>
         </div>
       </li>
     </ul>"
@@ -89,5 +91,12 @@ module ApplicationHelper
                          .joins(:setting)
                          .where(settings: { title: "Show Slider" }).first.option
     return "active" if option.title == "Show"
+  end
+
+  def dark_mode?
+    option = current_user.user_settings
+                         .joins(:setting)
+                         .where(settings: { title: "Default Theme" }).first.option
+    return true if option.title == "Dark"
   end
 end

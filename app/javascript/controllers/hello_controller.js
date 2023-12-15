@@ -6,12 +6,6 @@ export default class extends Controller {
   static targets = ["body"];
 
   connect() {
-    if (JSON.parse(localStorage.getItem("darkModeoOn")) == true) {
-      this.bodyTarget.classList.add('active');
-    } else if ( JSON.parse(localStorage.getItem("darkModeoOn")) == false ) {
-      this.bodyTarget.classList.remove('active');
-    }
-
     var menuContainer = document.querySelector('.navbar-container2');
     var menuBtn = document.querySelector('.navbar-header .logo .logoImg.slider svg');
     menuBtn.addEventListener('click', menuToggle);
@@ -22,7 +16,7 @@ export default class extends Controller {
 
     // Here we're handling the popovers
     const myDefaultAllowList = bootstrap.Popover.Default.allowList
-    myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream', 'data-bs-trigger', 'tabindex']
+    myDefaultAllowList.a = ['target', 'href', 'title', 'rel', 'data-method', 'data-turbo-stream', 'data-bs-trigger', 'tabindex', 'data-action', 'data-view', 'data-turbo-method']
     myDefaultAllowList.span = ['data-action', 'data-view', 'data-view-switcher-target']
     myDefaultAllowList.ul = ['data-controller']
 

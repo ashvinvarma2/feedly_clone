@@ -29,7 +29,7 @@
   <div id="loader" class="spinner-border text-success" style="display: none;" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <body data-controller="hello" data-hello-target="body">
+  <body class='<%= dark_mode? ? "active" : "" %>' data-controller="hello" data-hello-target="body">
     <script>
       toastr.options = {
         "closeButton": false,
