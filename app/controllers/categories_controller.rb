@@ -15,6 +15,12 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def update
+    @category = Category.find(params[:id])
+    @category.update(category_params)
+    turbo_stream
+  end
+
   def show
     @category = Category.find(params[:id])
     rss_feed_ids = @category.rss_feed_ids.any? ? @category.rss_feed_ids : [0]

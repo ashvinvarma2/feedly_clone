@@ -131,6 +131,22 @@
   width: 100%;
 }
 
+.category-rename-input input{
+  appearance: none;
+  background-color: var(--body-clr);
+  border-width: 0;
+  color: var(--text-clr);
+  font-size: 1rem;
+  line-height: normal;
+  margin: 0;
+  outline: 0;
+  padding: 0.5rem 0.75rem;
+  transition: color .1s ease, border-color .1s ease;
+  width: 79%;
+  margin-left: 50px;
+  border-radius: 5px;
+}
+
 .category-text-field:focus{
   border: 1px solid;
   border-color: var(--button-clr);

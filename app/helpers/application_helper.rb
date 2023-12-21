@@ -94,6 +94,8 @@ module ApplicationHelper
   end
 
   def dark_mode?
+    return true unless current_user
+
     option = current_user.user_settings
                          .joins(:setting)
                          .where(settings: { title: "Default Theme" }).first.option

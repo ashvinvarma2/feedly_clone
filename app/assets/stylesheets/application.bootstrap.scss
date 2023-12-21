@@ -21,7 +21,7 @@
 
    width: 100%;
    min-height: 100vh;
-   font-family: Roboto, sans-serif;
+   font-family: sans-serif;
    background-color: var(--body-clr);
    color: var(--text-clr);
    display: flex;
@@ -271,4 +271,14 @@ label .mandatory {
 
 .profile-dropdown li .category-name {
   margin-left: 19px;
+}
+
+.custom-dropdown.context-menu-dropdown{
+  width: 175px !important;
+}
+
+.custom-dropdown.context-menu-dropdown .category-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 7px;
 }

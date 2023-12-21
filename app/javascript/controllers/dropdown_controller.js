@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["content", "icon"];
 
   connect() {
-    console.log("Connection successful");
     this.closeDropdown();
   }
 

@@ -1,8 +1,19 @@
 <%= turbo_frame_tag board do %>
-  <div class="nav-list-item">
-    <span class="nav-icon"><i class="fa-regular fa-star"></i></span>
-    <span class="nav-list-item-text">
-      <%= link_to board.title, board_path(board), data: { turbo_stream: 'top' }, style: "text-decoration: none; color: var(--text-clr);" %>
-    </span>
+  <div class="board-section" data-name="<%= board.title %>">
+    <%= link_to board_path(board), class: "dropdown-link category-level", data: { turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" do %>
+      <div class="nav-list-item">
+        <span class="nav-icon"><i class="fa-regular fa-star"></i></span>
+        <span class="nav-list-item-text">
+          <%= board.title %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+  <div class="rename-form", style="display: none;">
+    <%= form_with(model: board, url: board_path(board), method: :patch) do |form| %>
+      <div class="category-rename-input">
+        <%= form.text_field :title, class: "category-text-field" %>
+      </div>
+    <% end %>
   </div>
 <% end %>

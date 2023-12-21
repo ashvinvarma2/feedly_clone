@@ -9,7 +9,7 @@ class BoardsController < ApplicationController
 
   def show
     @board = Board.find(params[:id])
-    result = Article.select("articles.*,
+    @result = Article.select("articles.*,
                              bool_or(user_articles.marked_as_read) as marked_as_read,
                              bool_or(user_articles.read_later) as read_later,
                              array_agg(board_articles.board_id) as b_ids")
@@ -18,8 +18,12 @@ class BoardsController < ApplicationController
                     .where("board_articles.board_id = #{@board.id}")
                     .group("articles.id")
                     .order("articles.pub_date DESC")
+  end
 
-    render_feeds(@board.title, result)
+  def update
+    @board = Board.find(params[:id])
+    @board.update(boards_params)
+    turbo_stream
   end
 
   def save_feed_to_board

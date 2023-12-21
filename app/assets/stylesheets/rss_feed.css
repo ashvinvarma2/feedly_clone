@@ -197,7 +197,7 @@
 }
 
 .folder-icon {
-  color: var(--line-clr);
+  color: var(--border-clr);
   margin-right: 15px;
   margin-left: 4px;
   font-size: 15px;

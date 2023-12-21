@@ -2,10 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="feed-actions"
 export default class extends Controller {
-  connect() {
-    console.log("Feed Action controller is activated!!")
-  }
-
   handleFavorite(event){
     if (event.currentTarget.classList.contains('fa-regular')) {
       event.currentTarget.classList.remove('fa-regular');
