@@ -13,28 +13,30 @@
 
     <div class="dropdown-content" data-dropdown-target="content">
       <% category.rss_feeds.each do |feed| %>
-        <div class="nav-list-item">
-          <span class="nav-list-item-text">
-            <%= link_to rss_feed_path(feed), class: "dropdown-link feed-level", data: { id: feed.id, turbo_frame: "dashboard_index", turbo_action: "replace" } do %>
-              <% if feed.favicon_url %>
-                <span>
-                  <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
-                </span>
-              <% else %>
-                <span style="margin-left: -3px; margin-right: -4px; color: var(--border-clr)">
-                  <%= inline_svg_tag "feedly-logo-transparent.svg" %>
+        <%= turbo_frame_tag feed do %>
+          <div class="nav-list-item dropdown-link rss-feed-level">
+            <span class="nav-list-item-text">
+              <%= link_to rss_feed_path(feed), data: { id: feed.id, turbo_frame: "dashboard_index", turbo_action: "replace" } do %>
+                <% if feed.favicon_url %>
+                  <span>
+                    <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
+                  </span>
+                <% else %>
+                  <span style="margin-left: -3px; margin-right: -4px; color: var(--border-clr)">
+                    <%= inline_svg_tag "feedly-logo-transparent.svg" %>
+                  </span>
+                <% end %>
+                <span style="margin-left: 10px">
+                  <%= feed.title  %>
                 </span>
               <% end %>
-              <span style="margin-left: 10px">
-                <%= feed.title  %>
-              </span>
-            <% end %>
-          </span>
-        </div>
+            </span>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
-  <div class="rename-form", style="display: none;">
+  <div class="category-rename-form rename-form", style="display: none;">
     <%= form_with(model: category, url: category_path(category), method: :patch) do |form| %>
       <div class="category-rename-input">
         <%= form.text_field :name, class: "category-text-field" %>

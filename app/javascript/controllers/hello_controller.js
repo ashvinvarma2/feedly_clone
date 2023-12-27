@@ -59,7 +59,6 @@ export default class extends Controller {
 
     body.addEventListener("contextmenu", function(event) {
       const dropdownLink = event.target.closest(".dropdown-link");
-      const category_id = dropdownLink.dataset.id
 
       if (dropdownLink) {
         event.preventDefault();
@@ -70,14 +69,7 @@ export default class extends Controller {
           openDropdown.remove();
         }
 
-        // Build the dropdown dynamically
-        if (dropdownLink.classList.contains("category-level")) {
-          var dropdownMenu = buildDropdown(dropdownLink);
-        } else if (dropdownLink.classList.contains("feed-level")) {
-          var dropdownMenu = buildFeedDropdown();
-        }
-
-        // Position the dropdown menu at the mouse coordinates
+        var dropdownMenu = buildDropdown(dropdownLink);
         dropdownMenu.style.position = "fixed";
         dropdownMenu.style.left = `${event.clientX}px`;
         dropdownMenu.style.top = `${event.clientY}px`;
@@ -94,9 +86,8 @@ export default class extends Controller {
               dropdownMenu.classList.remove("show");
               body.removeEventListener("click", clickOutside);
               openDropdown = null;
-              // Remhh bbove the dynamically created dropdown element
               dropdownMenu.remove();
-              toggleForm(dropdownLink);
+              toggleForm(dropdownLink, "close");
             }
           }
         });
@@ -128,7 +119,7 @@ export default class extends Controller {
           dropdownMenu.remove();
 
           if (this.classList.contains("rename-category")){
-            toggleForm(dropdownLink);
+            toggleForm(dropdownLink, "open");
           }
         });
       });
@@ -139,21 +130,25 @@ export default class extends Controller {
       return dropdownMenu;
     }
 
-    function toggleForm(dropdownLink) {
+    function toggleForm(dropdownLink, action) {
       var categoryElement = dropdownLink.parentElement
-      var formElement = categoryElement.parentElement.querySelector(".rename-form")
-      const formVisible = formElement.style.display !== "none";
+      if (dropdownLink.classList.contains('category-level')) {
+        var formElement = categoryElement.parentElement.querySelector('.category-rename-form');
+      } else if (dropdownLink.classList.contains('board-level')) {
+          var formElement = categoryElement.parentElement.querySelector('.board-rename-form');
+      } else if (dropdownLink.classList.contains('rss-feed-level')) {
+        var formElement = categoryElement.nextElementSibling;
+      }
 
-      if (formVisible) {
+      if (action === "close") {
         categoryElement.style.display = "block";
         formElement.style.display = "none";
-      } else {
+      } else if (action === "open") {
         categoryElement.style.display = "none";
         formElement.style.display = "block ";
         var categoryInput = formElement.querySelector(".category-text-field")
         categoryInput.focus();
         categoryInput.setSelectionRange(categoryInput.value.length, categoryInput.value.length);
-        debugger
         categoryInput.value = categoryElement.dataset.name;
       }
     }

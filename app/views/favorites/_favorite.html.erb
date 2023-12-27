@@ -9,23 +9,25 @@
 
   <% if favorite.favoritable_type == "RssFeed" %>
     <% feed = favorite.favoritable %>
-    <div class="favorite-rss-feed nav-list-item">
-      <span class="nav-list-item-text">
-        <%= link_to rss_feed_path(feed), data: { turbo_frame: "dashboard_index", turbo_action: "replace" } do %>
-          <% if feed.favicon_url %>
-            <span>
-              <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
-            </span>
-          <% else %>
-            <span style="margin-left: -3px; margin-right: -4px; color: var(--border-clr)">
-              <%= inline_svg_tag "feedly-logo-transparent.svg" %>
+    <%= turbo_frame_tag feed do %>
+      <div class="favorite-rss-feed nav-list-item dropdown-link rss-feed-level">
+        <span class="nav-list-item-text">
+          <%= link_to rss_feed_path(feed), data: { turbo_frame: "dashboard_index", turbo_action: "replace" } do %>
+            <% if feed.favicon_url %>
+              <span>
+                <img src="<%= feed.favicon_url %>" height="15" width="15" id=logo alt="Logo image" />
+              </span>
+            <% else %>
+              <span style="margin-left: -3px; margin-right: -4px; color: var(--border-clr)">
+                <%= inline_svg_tag "feedly-logo-transparent.svg" %>
+              </span>
+            <% end %>
+            <span style="margin-left: 10px">
+              <%= feed.title  %>
             </span>
           <% end %>
-          <span style="margin-left: 10px">
-            <%= feed.title  %>
-          </span>
-        <% end %>
-      </span>
-    </div>
+        </span>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import 'popper.js'
+import * as bootstrap from "bootstrap"
 
 export default class extends Controller {
   static targets = ["feedLayout", "feedActions"];
@@ -8,20 +10,26 @@ export default class extends Controller {
   }
 
   showModal(event) {
-    var articleId = this.feedLayoutTarget.dataset.articleId;
 
-    jQuery.ajax({
-      type: "GET",
-      url: `/rss_feeds/show_article/${articleId}`,
-      data: { },
-      dataType: "script",
-      success(data) {
-        return false;
-      },
-      error(data) {
-        return false;
-      }
-    })
+    if (!event.target.closest('.bookmark-icons')) {
+      var articleId = this.feedLayoutTarget.dataset.articleId;
+      var feedModal = document.getElementById('feedModal');
+      var modal = new bootstrap.Modal(feedModal);
+
+      jQuery.ajax({
+        type: "GET",
+        url: `/rss_feeds/show_article/${articleId}`,
+        data: { },
+        dataType: "script",
+        success(data) {
+          modal.show();
+          return false;
+        },
+        error(data) {
+          return false;
+        }
+      })
+    }
   }
 
   markRead(event){
