@@ -1,12 +1,13 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
-import "./controllers"
 import 'popper.js'
 import * as bootstrap from "bootstrap"
 
 import jquery from 'jquery';
 window.jQuery = jquery;
 window.$ = jquery;
+
+import "./controllers"
 
 import "toastr"
 window.toastr = require("toastr")

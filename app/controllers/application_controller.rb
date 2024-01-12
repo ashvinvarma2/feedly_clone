@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :clear_turbo_flash
   before_action :set_dashboard
   skip_before_action :verify_authenticity_token, if: :js_request?
@@ -28,5 +29,21 @@ class ApplicationController < ActionController::Base
 
   def js_request?
     request.format.js?
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+      user_params.permit(:email, :password)
+    end
+
+    devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+      user_params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    end
+
+    devise_parameter_sanitizer.permit(:account_update) do |user_params|
+      user_params.permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password)
+    end
   end
 end

@@ -23,11 +23,11 @@
     </div>
     <div>
       <%= form.submit 'SAVE', class: "action-btn save-category", data: { action: "error-handler#submit" } %>
-      <button type="button" class="action-btn cancel-category">
+      <%= link_to dashboard_index_path, class: "action-btn cancel-category no-decoration" do %>
         <span class="close-button" type="button" aria-label="Close">
           CANCEL
         </span>
-      </button>
+      <% end %>
     </div>
   <% end %>
 

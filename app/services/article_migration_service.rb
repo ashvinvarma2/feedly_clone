@@ -11,7 +11,7 @@ class ArticleMigrationService
     rss_feed_data.each do |feed_item|
       break if article_exists?(feed_item[:link])
 
-      Article.create(feed_item.merge(rss_feed_id: @rss_feed.id))
+      Article.find_or_create_by!(feed_item.merge(rss_feed_id: @rss_feed.id))
     end
   end
 

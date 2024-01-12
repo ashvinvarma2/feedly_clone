@@ -1,0 +1,46 @@
+<%= turbo_frame_tag "your_profile" do %>
+  <div class="inside-container">
+  <h2 class="heading-title">
+    <div class="heading-description" style="margin-bottom: 15px;">
+      MANAGE ACCOUNT
+    </div>
+    Your Profile
+  </h2>
+
+  <%= form_for(resource, as: :user, url: user_path(resource), html: { method: :put }) do |f| %>
+    <div style="margin-bottom: 1.5rem;">
+      <div class= "category-title" >
+        <%= f.label :first_name%>
+        <span class="mandatory">*</span>
+      </div>
+      <div class="category-input" data-category_form-target="input">
+        <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "category-text-field" %>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class= "category-title" >
+        <%= f.label :last_name%>
+        <span class="mandatory">*</span>
+      </div>
+      <div class="category-input" data-category_form-target="input">
+        <%= f.text_field :last_name, autocomplete: "last_name", class: "category-text-field"%>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class= "category-title" >
+        <%= f.label :email%>
+        <span class="mandatory">*</span>
+      </div>
+      <div class="category-input" data-category_form-target="input">
+        <%= f.email_field :email, autocomplete: "email", class: "category-text-field", disabled: true %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save Changes", class: "action-btn save-category", data: { "bs-dismiss"=>"modal" } %>
+    </div>
+  <% end %>
+<% end %>
+

@@ -1,6 +1,7 @@
 <%= turbo_frame_tag board do %>
   <div class="board-section" data-name="<%= board.title %>">
-    <%= link_to board_path(board), class: "dropdown-link board-level", data: { turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" do %>
+    <% marked_favorite = board.favorites.where(user_id: current_user.id).any? %>
+    <%= link_to board_path(board), class: "dropdown-link board-level", data: { id: board.id, class: "Board", marked_favorite: marked_favorite, turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" do %>
       <div class="nav-list-item">
         <span class="nav-icon"><i class="fa-regular fa-star"></i></span>
         <span class="nav-list-item-text">

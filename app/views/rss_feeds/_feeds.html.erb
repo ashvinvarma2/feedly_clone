@@ -2,7 +2,7 @@
 <% can_show_hide_button = can_show_hide_button? %>
 <div class="row <%= default_view %>" style="margin-top: 40px;" id="results-container">
   <% if result.any? %>
-    <% result.each do |r| %>
+    <% result.order("articles.pub_date #{sort_order}").each do |r| %>
       <% next if r["marked_as_read_and_hide"] %>
       <div class="feed-layout col-4" data-article-id="<%= r["id"]%>" data-controller="feed-modal" data-action="click->feed-modal#showModal" data-feed-modal-target="feedLayout" data-turbo-frame="<%= r %>">
         <img src="<%= r["image_url"]%>" class="img-card" width="100%" id=logo alt="Logo image" />
@@ -41,6 +41,12 @@
         Which topics or trends do you want to keep up with?
         <div>
           You can track specific topics or follow websites and newsletters
+        </div>
+        <div style="text-align: center;">
+          <%= link_to new_rss_feed_path, class: 'follow-website-button' do %>
+            <%= inline_svg_tag "follow-page.svg" %>
+            VISIT WEBSITE
+          <% end %>
         </div>
       </h2>
     </div>

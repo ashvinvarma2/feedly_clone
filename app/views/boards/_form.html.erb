@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+    <i class="fa-solid fa-xmark"></i>
+  </span>
+</div>
+<div class="modal-body">
+  <div class="category_form">
+    <h2>
+      Create New Board
+      <div>
+        Save the most important articles you read around your projects, clients, or interests
+      </div>
+    </h2>
+    <%= form_with model: Board.new, method: :post, data: { controller: "general", action: 'turbo:submit-end->general#reloadBoard' } do |form| %>
+      <% if article_id %>
+        <%= form.hidden_field :article_id, value: article_id %>
+      <% end %>
+      <div style="margin-bottom: 1.5rem;">
+        <div>
+            <label class="category-title">
+              Title
+              <span class="mandatory">*</span>
+            </label>
+        </div>
+        <div class="category-input" data-category_form-target="input">
+          <%= form.text_field :title, id: "board_title_input", placeholder: "Enter Board's Title", class: "category-text-field", autocomplete: 'off' %>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <div>
+          <label class="category-title">
+            Description
+          </label>
+        </div>
+        <div class="category-input" data-category_form-target="input">
+          <%= form.text_field :description, placeholder: "Enter Borad's Decription", class: "category-text-field", autocomplete: 'off' %>
+        </div>
+      </div>
+      <div>
+        <%= form.submit 'CREATE', class: "action-btn save-category", id: "create_board_button", disabled: true %>
+        <button type="button" class="action-btn cancel-category">
+          <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+            CANCEL
+          </span>
+        </button>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  var titleInput = document.getElementById("board_title_input");
+  var saveButton = document.getElementById("create_board_button");
+  titleInput.addEventListener('input', function() {
+    saveButton.disabled = titleInput.value.trim() === '';
+  });
+</script>

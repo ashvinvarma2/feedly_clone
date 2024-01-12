@@ -32,14 +32,6 @@
       </li>
 
       <li>
-        <%= link_to "Search path", data: { turbo_stream: 'true' } do %>
-          <span class="nav-icon" data-label="Topic">
-            <%= inline_svg_tag "search-icon.svg" %>
-          </span>
-        <% end %>
-      </li>
-
-      <li>
         <a tabindex="0"
            data-bs-toggle="popover"
            data-bs-placement="right"
@@ -90,15 +82,19 @@
         </div>
         <ul class="dropdown-menu custom-dropdown profile-dropdown" aria-labelledby="profile-button">
           <div>
-            <li class="name row">
-              <div class="col-3">
+            <li class="name">
+              <div class="col-3" style="margin-left: 11px;">
                 <div class="profile-button">
                   <%= current_user.email[0].capitalize %>
                 </div>
               </div>
               <div class="col-9">
                 <div>
-                  <span>Ashwin Varma</span>
+                  <%= turbo_frame_tag "profile-name" do %>
+                    <span>
+                      <%= current_user.first_name.to_s.capitalize + " " + current_user.last_name.to_s.capitalize %>
+                    </span>
+                  <% end %>
                   <p><%= current_user.email %></p>
                 </div>
               </div>
@@ -163,21 +159,23 @@
     <span>FEEDS</span>
   </div>
 
-  <div class="nav-list-item">
-    <span class="nav-icon" style="display: contents !important">
-      <%= inline_svg_tag "all-feeds-icon.svg" %>
-    </span>
-    <span class="nav-list-item-text nav-list-item-text-bold">
-      All
-    </span>
-  </div>
+  <%= link_to all_feeds_path, data: { turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; display: contents;" do %>
+    <div class="nav-list-item">
+      <span class="nav-icon" style="display: contents !important">
+        <%= inline_svg_tag "all-feeds-icon.svg" %>
+      </span>
+      <span class="nav-list-item-text nav-list-item-text-bold">
+        All
+      </span>
+    </div>
+  <% end %>
 
   <%= turbo_frame_tag "categories" do %>
     <%= render partial: "categories/category", collection: @categories, as: :category %>
   <% end %>
 
   <div class="nav-list-item" style="margin-top:20px;">
-    <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-controller="category-form" data-action="click->category-form#clearInput">
       Create new folder
     </span>
   </div>
@@ -191,7 +189,7 @@
   <% end %>
 
   <div class="nav-list-item" style="margin-top:20px;">
-    <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#boardModal">
+    <span class="nav-list-item-text" style="margin-left:44px;" data-bs-toggle="modal" data-bs-target="#boardModal" data-controller="general" data-action="click->general#clearInput">
       Create new board
     </span>
   </div>

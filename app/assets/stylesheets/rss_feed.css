@@ -79,6 +79,32 @@
   letter-spacing: 2px;
 }
 
+.visit-button:hover {
+  color: var(--text-clr);
+  border: 1px solid var(--text-clr);
+}
+
+.follow-website-button {
+  display: inline-block !important;
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid var(--border-clr);
+  color: var(--border-clr);
+  padding: 5px 11px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 30px;
+  display: block;
+  letter-spacing: 1px;
+  width: 211px;
+}
+
+.follow-website-button:hover {
+  color: var(--text-clr);
+  border: 1px solid var(--text-clr);
+}
+
 .custom-popover {
   background-color: var(--body-clr);;
   box-shadow: 0 2px 8px rgba(255,255,255,.2);

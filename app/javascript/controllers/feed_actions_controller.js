@@ -15,4 +15,30 @@ export default class extends Controller {
       event.currentTarget.setAttribute('aria-label', 'Mark favorite');
     }
   }
+
+  showLatestFeed(event) {
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "9000",
+      "timeOut": "2000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut",
+      "onHidden": function() {
+        window.location.reload();
+      }
+    };
+
+    toastr["success"]("Wait! New feeds are loading....");
+  }
+
 }

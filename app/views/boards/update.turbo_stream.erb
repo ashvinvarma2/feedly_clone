@@ -1,3 +1,5 @@
 <%= turbo_stream.replace_all("#board_#{@board.id}")  do %>
   <% render partial: 'boards/board', locals: { board: @board } %>
 <% end %>
+
+<%= render_turbo_stream_flash_messages %>

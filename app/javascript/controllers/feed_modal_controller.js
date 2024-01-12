@@ -10,7 +10,6 @@ export default class extends Controller {
   }
 
   showModal(event) {
-
     if (!event.target.closest('.bookmark-icons')) {
       var articleId = this.feedLayoutTarget.dataset.articleId;
       var feedModal = document.getElementById('feedModal');
@@ -50,11 +49,13 @@ export default class extends Controller {
   }
 
   showActions(event){
-    this.feedActionsTarget.style.display = "flex";
-    this.feedLayoutTarget.addEventListener("mouseleave", this.hideActions.bind(this));
-    const popover = document.querySelector('.custom-popover.board-popover');
-    if (popover) {
-      popover.remove();
+    if (!event.target.parentElement.classList.contains("title-view")){
+      this.feedActionsTarget.style.display = "flex";
+      this.feedLayoutTarget.addEventListener("mouseleave", this.hideActions.bind(this));
+      const popover = document.querySelector('.custom-popover.board-popover');
+      if (popover) {
+        popover.remove();
+      }
     }
   }
 

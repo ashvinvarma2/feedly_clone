@@ -2,6 +2,6 @@
   <%= render partial: 'categories/category', locals: { category: @category } %>
 <% end %>
 
-<%= turbo_stream.replace "dropdown_categories" do %>
+<%= turbo_stream.update "dropdown_categories" do %>
   <%= render partial: 'categories/dropdown_categories' %>
 <% end %>

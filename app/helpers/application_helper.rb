@@ -31,6 +31,16 @@ module ApplicationHelper
     end
   end
 
+  def can_show_refresh_button?
+    if (controller_name == "rss_feeds" && action_name == "show") ||
+       (controller_name == "categories" && action_name == "show" ) ||
+       (controller_name == "dashboard" && action_name == "index")
+      true
+    else
+      false
+    end
+  end
+
   def can_show_hide_button?
     valid_combinations = [
       ["categories", "show"],
@@ -100,5 +110,12 @@ module ApplicationHelper
                          .joins(:setting)
                          .where(settings: { title: "Default Theme" }).first.option
     return true if option.title == "Dark"
+  end
+
+  def sort_order
+    option = current_user.user_settings
+                         .joins(:setting)
+                         .where(settings: { title: "Default Sort" }).first.option
+    option.title == "Latest" ? "DESC" : ""
   end
 end

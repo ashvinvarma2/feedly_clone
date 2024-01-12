@@ -78,18 +78,46 @@ export default class extends Controller {
         dropdownMenu.classList.add("show");
         openDropdown = dropdownMenu;
 
+        if (document.getElementById('add-favorite') !== null ){
+          document.getElementById('add-favorite').addEventListener('click', function(event) {
+            document.querySelectorAll(`.dropdown-link[data-id="${dropdownLink.dataset.id}"][data-class="${dropdownLink.dataset.class}"]`).forEach((element, index) => {
+              element.dataset.markedFavorite = "true";
+            });
+          });
+        }
+
+        if (document.getElementById('remove-favorite') !== null ){
+          document.querySelector('#remove-favorite').addEventListener('click', function(event) {
+            document.querySelectorAll(`.dropdown-link[data-id="${dropdownLink.dataset.id}"][data-class="${dropdownLink.dataset.class}"]`).forEach((element, index) => {
+              element.dataset.markedFavorite = "false";
+            });
+          });
+        }
+
         // Close the dropdown when clicking outside of it
+        var formElement = dropdownLink.parentElement.parentElement.querySelector(".rename-form")
         body.addEventListener("click", function clickOutside(event) {
-          var formElement = dropdownLink.parentElement.parentElement.querySelector(".rename-form")
-          if (!dropdownLink.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            if (!formElement.contains(event.target)) {
+          if (formElement) {
+            if (!dropdownLink.contains(event.target) && !dropdownMenu.contains(event.target)) {
+              if (!(formElement  && formElement.contains(event.target))) {
+                dropdownMenu.classList.remove("show");
+                body.removeEventListener("click", clickOutside);
+                openDropdown = null;
+                dropdownMenu.remove();
+                if (!dropdownLink.classList.contains("rss-feed-level")) {
+                  toggleForm(dropdownLink, "close");
+                }
+              }
+            }
+          } else {
+            if (!dropdownLink.contains(event.target) && !dropdownMenu.contains(event.target)) {
               dropdownMenu.classList.remove("show");
               body.removeEventListener("click", clickOutside);
               openDropdown = null;
               dropdownMenu.remove();
-              toggleForm(dropdownLink, "close");
             }
           }
+
         });
       }
     });
@@ -100,13 +128,69 @@ export default class extends Controller {
       dropdownMenu.classList.add("dropdown-menu");
       dropdownMenu.classList.add("custom-dropdown");
       dropdownMenu.classList.add("context-menu-dropdown");
+      var favoritable_id = dropdownLink.dataset.id;
+      var favoritable_class = dropdownLink.dataset.class;
+      var markedFavorite = dropdownLink.dataset.markedFavorite;
 
-      var item = `<li class="rename-category">
-                    <div class="category-name">
-                      <i class="fa fa-i-cursor folder-icon"></i>
-                      <span>Rename</span>
-                    </div>
-                  </li>`
+      var item = ""
+
+      if (!dropdownLink.classList.contains('rss-feed-level')) {
+        item += `<li class="rename-category">
+                      <div class="category-name">
+                        <i class="fa fa-i-cursor folder-icon"></i>
+                        <span>Rename</span>
+                      </div>
+                    </li>`
+      }
+
+      if (markedFavorite === 'true') {
+        item += `<a id="remove-favorite" style="text-decoration: none;" data-turbo-stream="true" href="/favorites/handle_favorite?favoritable_id=${favoritable_id};favoritable_type=${favoritable_class}">
+                   <li class="remove-from-favorite">
+                     <div class="category-name">
+                       <i class="fa-solid fa-heart folder-icon"></i>
+                       <span>Remove from Favorite</span>
+                     </div>
+                   </li>
+                 </a>`
+      } else {
+        item += `<a id="add-favorite" style="text-decoration: none;" data-turbo-stream="true" href="/favorites/handle_favorite?favoritable_id=${favoritable_id};favoritable_type=${favoritable_class}">
+                   <li class="add-to-favorite">
+                     <div class="category-name">
+                        <i class="fa-regular fa-heart folder-icon"></i>
+                        <span>Add to Favorite</span>
+                     </div>
+                   </li>
+                 </a>`
+      }
+
+      if (dropdownLink.classList.contains('category-level')) {
+        item += `<a style="text-decoration: none;" data-turbo-stream="true" data-turbo-method="DELETE" href="/categories/${favoritable_id}">
+                   <li>
+                     <div class="category-name">
+                     <i class="fa-regular fa-trash-can folder-icon"></i>
+                        <span>Delete</span>
+                     </div>
+                   </li>
+                 </a>`
+      } else if (dropdownLink.classList.contains('board-level')) {
+        item += `<a style="text-decoration: none;" data-turbo-stream="true" data-turbo-method="DELETE" href="/boards/${favoritable_id}">
+                   <li>
+                     <div class="category-name">
+                     <i class="fa-regular fa-trash-can folder-icon"></i>
+                       <span>Delete</span>
+                     </div>
+                   </li>
+                 </a>`
+      } else if (dropdownLink.classList.contains('rss-feed-level')) {
+        item += `<a style="text-decoration: none;" data-turbo-stream="true" href="/rss_feeds/unfollow/${favoritable_id}">
+                   <li>
+                     <div class="category-name">
+                     <i class="fa-regular fa-trash-can folder-icon"></i>
+                       <span>Unfollow</span>
+                     </div>
+                   </li>
+                 </a>`
+      }
 
       dropdownMenu.innerHTML += item;
 
@@ -152,25 +236,5 @@ export default class extends Controller {
         categoryInput.value = categoryElement.dataset.name;
       }
     }
-
-    // function buildFeedDropdown() {
-    //   // Create a new dropdown menu element
-    //   const dropdownMenu = document.createElement("div");
-    //   dropdownMenu.classList.add("dropdown-menu");
-
-    //   const dummyItems = ["dsfsdd", "Add To Favorite", "Delete"];
-    //   dummyItems.forEach(function(itemText) {
-    //     const item = document.createElement("a");
-    //     item.classList.add("dropdown-item");
-    //     item.href = "#";
-    //     item.textContent = itemText;
-    //     dropdownMenu.appendChild(item);
-    //   });
-
-    //   // Append the dropdown menu to the document body
-    //   body.appendChild(dropdownMenu);
-
-    //   return dropdownMenu;
-    // }
   }
 }

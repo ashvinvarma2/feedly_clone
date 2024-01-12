@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_31_142413) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_11_073642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_142413) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_rss_feeds_on_category_id"
     t.index ["rss_feed_id"], name: "index_category_rss_feeds_on_rss_feed_id"
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -125,6 +140,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_142413) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

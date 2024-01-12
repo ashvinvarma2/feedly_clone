@@ -1,0 +1,5 @@
+<%= turbo_stream.update "profile-name" do %>
+  <span><%= @user.first_name.to_s.capitalize + " " + @user.last_name.to_s.capitalize %></span>
+<% end %>
+
+<%= render_turbo_stream_flash_messages %>

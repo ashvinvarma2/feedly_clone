@@ -12,7 +12,7 @@
         <%= inline_svg_tag "setting.svg"%>
       </span>
     </div>
-    <div class="setting-box col-md-3">
+    <div class="setting-box col-md-3" data-bs-toggle="modal" data-bs-target="#profileModal">
       <span>Your Profile</span>
       <span style="margin-top: 42px; color: var(--border-clr)">
         <%= inline_svg_tag "profile.svg"%>
@@ -33,6 +33,21 @@
         <%= turbo_frame_tag "general_settings" do %>
           <%= render partial: "general_setting" %>
         <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal right" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true" data-category_form-target="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close-button" type="button" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      </div>
+      <div class="modal-body">
+        <%= render partial: "users/profile_form", locals: { resource: current_user } %>
       </div>
     </div>
   </div>

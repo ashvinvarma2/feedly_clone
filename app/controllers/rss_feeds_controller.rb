@@ -47,7 +47,6 @@ class RssFeedsController < ApplicationController
                        .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
                        .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
                        .group("articles.id")
-                       .order("articles.pub_date DESC")
   end
 
   def mark_read_unread
@@ -91,11 +90,10 @@ class RssFeedsController < ApplicationController
                              bool_or(user_articles.marked_as_read) as marked_as_read,
                              bool_or(user_articles.read_later) as read_later,
                              array_agg(board_articles.board_id) as b_ids")
-                    .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
-                    .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
-                    .where("user_articles.marked_as_read = true")
-                    .group("articles.id")
-                    .order("articles.pub_date DESC")
+                     .joins("LEFT JOIN board_articles ON articles.id = board_articles.article_id AND board_articles.board_id IN (#{board_ids.join(',')})")
+                     .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
+                     .where("user_articles.marked_as_read = true")
+                     .group("articles.id")
 
     respond_to do |format|
       format.turbo_stream
@@ -113,7 +111,6 @@ class RssFeedsController < ApplicationController
                      .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
                      .where("user_articles.read_later = true")
                      .group("articles.id")
-                     .order("articles.pub_date DESC")
 
     respond_to do |format|
       format.turbo_stream
@@ -127,6 +124,14 @@ class RssFeedsController < ApplicationController
     respond_to do |format|
       format.js { render content_type: "text/javascript" }
     end
+  end
+
+  def unfollow
+    @rss_feed = RssFeed.find(params[:id])
+    current_user.category_rss_feeds.where(rss_feed_id: @rss_feed.id).destroy_all
+    current_user.favorites.where(favoritable_id: @rss_feed.id, favoritable_type: "RssFeed").destroy_all
+    flash[:toastr] = { "success" => "Rss Feed Unfollowed!!" }
+    turbo_stream
   end
 
   private

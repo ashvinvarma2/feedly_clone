@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import 'popper.js'
+import * as bootstrap from "bootstrap"
 
 // Connects to data-controller="general"
 export default class extends Controller {
@@ -26,5 +28,43 @@ export default class extends Controller {
         read_later_target.classList.remove('fa-solid');
       }
     }
+  }
+
+  newBoard(event) {
+    var articleId = event.target.closest("a").dataset.articleId;
+    var boardModal = document.getElementById('boardModal');
+    var modal = new bootstrap.Modal(boardModal);
+
+    jQuery.ajax({
+      type: "GET",
+      url: `/boards/new/`,
+      data: { article_id: articleId},
+      dataType: "script",
+      success(data) {
+        modal.show();
+        return false;
+      },
+      error(data) {
+        return false;
+      }
+    })
+  }
+
+  reloadBoard() {
+    window.location.reload();
+  }
+
+  clearInput() {
+    var titleInput = document.getElementById("board_title_input");
+    var descriptionInput = document.getElementById("board_description")
+    var saveButton = document.getElementById("create_board_button");
+
+    saveButton.disabled = true;
+    titleInput.value = '';
+    descriptionInput.value = '';
+
+    titleInput.addEventListener('input', function() {
+      saveButton.disabled = titleInput.value.trim() === '';
+    });
   }
 }

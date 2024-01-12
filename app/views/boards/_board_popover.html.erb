@@ -36,10 +36,7 @@
     <%= inline_svg_tag r["b_ids"]&.any? ? "star-filled.svg" : "star.svg", class: 'board-icon'%>
   </a>
 <% else %>
-  <a id="follow-button"
-      data-bs-custom-class="custom-popover board-popover"
-      data-bs-toggle="modal"
-      data-bs-target="#boardModal">
+  <a id="follow-button" data-controller="general" data-action="click->general#newBoard" data-article-id="<%= r['id']%>">
     <%= inline_svg_tag "star.svg", class: 'board-icon'%>
   </a>
 <% end %>

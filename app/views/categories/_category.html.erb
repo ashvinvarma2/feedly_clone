@@ -1,6 +1,7 @@
 <%= turbo_frame_tag category do %>
+  <% marked_favorite = category.favorites.where(user_id: current_user.id).any? %>
   <div class="category-section" data-name="<%= category.name %>" data-controller="dropdown">
-    <%= link_to category_path(category), class: "dropdown-link category-level", data: { id: category.id, turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" do %>
+    <%= link_to category_path(category), class: "dropdown-link category-level", data: { id: category.id, class: "Category", marked_favorite: marked_favorite, turbo_frame: "dashboard_index", turbo_action: "replace" }, style: "text-decoration: none; color: var(--text-clr);" do %>
       <div class="nav-list-item">
         <span class="dropdown-icon" data-action="click->dropdown#toggle">
           <i class="fa-solid fa-chevron-right" data-dropdown-target="icon"></i>
@@ -12,9 +13,11 @@
     <% end %>
 
     <div class="dropdown-content" data-dropdown-target="content">
-      <% category.rss_feeds.each do |feed| %>
+      <% category.category_rss_feeds.includes(rss_feed: :favorites).each do |category_rss_feed| %>
+        <% feed = category_rss_feed.rss_feed %>
         <%= turbo_frame_tag feed do %>
-          <div class="nav-list-item dropdown-link rss-feed-level">
+          <% feed_marked_favorite = feed.favorites.where(user_id: current_user.id).any? %>
+          <div class="nav-list-item dropdown-link rss-feed-level" data-id=<%= feed.id %> data-class="RssFeed" data-marked-favorite=<%= feed_marked_favorite %>>
             <span class="nav-list-item-text">
               <%= link_to rss_feed_path(feed), data: { id: feed.id, turbo_frame: "dashboard_index", turbo_action: "replace" } do %>
                 <% if feed.favicon_url %>

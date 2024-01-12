@@ -34,7 +34,13 @@ class CategoriesController < ApplicationController
                      .joins("LEFT JOIN user_articles ON articles.id = user_articles.article_id AND user_articles.user_id = #{current_user.id}")
                      .where("articles.rss_feed_id IN (#{rss_feed_ids.join(',')})")
                      .group("articles.id")
-                     .order("articles.pub_date DESC")
+  end
+
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy
+    flash[:toastr] = { "success" => "Category Deleted!!" }
+    turbo_stream
   end
 
   private

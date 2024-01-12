@@ -35,7 +35,11 @@
   </div>
   <div class="col-6 feed-actions" data-controller="feed-actions">
     <span>
-      <% if can_show_favorite_button? %>
+      <% if can_show_refresh_button? %>
+        <i class="fa-solid fa-rotate-left" data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh feeds" data-action="click->feed-actions#showLatestFeed"></i>
+      <% end %>
+
+      <% if show_favorite %>
         <%= link_to handle_favorite_path(favoritable_id: @favoritable.id, favoritable_type: @favoritable.class), style: "text-decoration: none;", data: { turbo_stream: 'true'} do %>
           <i class="<%= marked_favorite ? 'fa-solid' : 'fa-regular'%> fa-heart" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= marked_favorite ? 'Remove from Favorites' : 'Mark Favorite'%>" data-action="click->feed-actions#handleFavorite"></i>
         <% end %>
