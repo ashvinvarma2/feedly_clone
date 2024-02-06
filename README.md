@@ -1,6 +1,7 @@
 # README
 
 ### Description
+  - This application is build with an intension of exploring new features of Rails 7 such as Hotwire ( Turbo + Stimulus )
   - Feedly helps you keep up with the topics and trends that matter most to you, without the overwhelm. We’ll show you how to get started.
 
 ### Prerequisites
